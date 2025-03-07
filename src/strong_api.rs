@@ -1,4 +1,4 @@
-use std::fmt::format;
+use std::fmt;
 use reqwest::{Client, header::{HeaderMap, HeaderName, HeaderValue}, Url};
 use serde::Deserialize;
 use serde_json::json;
@@ -21,6 +21,31 @@ pub struct LoginResponse {
     refresh_token: Option<String>,
     #[serde(rename = "userId")]
     user_id: Option<String>,
+}
+
+pub enum Includes {
+    Log,
+    Measurement,
+    Tag,
+    Widget,
+    Template,
+    Folder,
+    MeasuredValue
+}
+
+impl fmt::Display for Includes {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let value = match self {
+            Includes::Log => "log",
+            Includes::Measurement => "measurement",
+            Includes::Tag => "tag",
+            Includes::Widget => "widget",
+            Includes::Template => "template",
+            Includes::Folder => "folder",
+            Includes::MeasuredValue => "measuredValue",
+        };
+        write!(f, "{}", value)
+    }
 }
 
 impl StrongApi {
@@ -121,7 +146,6 @@ impl StrongApi {
             .send()
             .await?;
 
-        dbg!(response.status());
 
         let response_text = response.text().await?;
 
@@ -133,9 +157,17 @@ impl StrongApi {
         Ok(())
     }
 
-    pub async fn get_user(&self) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn get_user(&self, continuation: &str, limit: i16, includes: Vec<Includes>) -> Result<(), Box<dyn std::error::Error>> {
         let user_id = &*self.user_id.clone().unwrap();
-        let url = self.url.join(format!("api/users/{user_id}").as_str()).unwrap();
+        let mut url = self.url.join(format!("api/users/{user_id}").as_str()).unwrap();
+
+        url.set_query(Some(&format!("limit={}&continuation={}", limit, continuation)));
+
+        for include in includes {
+            url.set_query(Some(&format!("{}&include={}", url.query().unwrap(), include)));
+        }
+
+        dbg!(&url.to_string());
 
         let response = self.client
             .get(url)
@@ -144,7 +176,23 @@ impl StrongApi {
             .send()
             .await?;
 
-        dbg!(response.status());
+        let response_text = response.text().await?;
+
+        dbg!(response_text);
+
+        Ok(())
+    }
+
+    pub async fn get_measurements(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let user_id = &*self.user_id.clone().unwrap();
+        let url = self.url.join(format!("api/measurements/{user_id}").as_str()).unwrap();
+
+        let response = self.client
+            .get(url)
+            .bearer_auth(self.access_token.clone().unwrap())
+            .headers(self.headers.clone())
+            .send()
+            .await?;
 
         let response_text = response.text().await?;
 
