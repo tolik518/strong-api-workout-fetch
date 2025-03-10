@@ -1,0 +1,16 @@
+# Strong API data dump
+
+This repo provides access to the Strong API to save workouts to your own database.
+The URL to the API backend is not provided here, but you can find it through the Strong app.
+
+## How to use
+
+1. Clone this repo
+2. Create .env file in the root directory with the following content:
+    ```ini
+    STRONG_BACKEND=https://strong_backend_url.com
+    
+    STRONG_USER=your_strong_user
+    STRONG_PASS=your_strong_pass
+    ```
+3. Run with `cargo run`
