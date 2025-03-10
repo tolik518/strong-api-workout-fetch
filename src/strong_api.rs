@@ -2,6 +2,7 @@ use std::fmt;
 use reqwest::{Client, header::{HeaderMap, HeaderName, HeaderValue}, Url};
 use serde::Deserialize;
 use serde_json::json;
+use crate::user_response::UserResponse;
 
 #[derive(Debug)]
 pub struct StrongApi {
@@ -157,7 +158,7 @@ impl StrongApi {
         Ok(())
     }
 
-    pub async fn get_user(&self, continuation: &str, limit: i16, includes: Vec<Includes>) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn get_user(&self, continuation: &str, limit: i16, includes: Vec<Includes>) -> Result<UserResponse, Box<dyn std::error::Error>> {
         let user_id = &*self.user_id.clone().unwrap();
         let mut url = self.url.join(format!("api/users/{user_id}").as_str()).unwrap();
 
@@ -178,14 +179,33 @@ impl StrongApi {
 
         let response_text = response.text().await?;
 
-        dbg!(response_text);
 
-        Ok(())
+        let parsed: UserResponse = serde_json::from_str(&response_text)?;
+
+        Ok(parsed)
     }
 
     pub async fn get_measurements(&self) -> Result<(), Box<dyn std::error::Error>> {
         let user_id = &*self.user_id.clone().unwrap();
         let url = self.url.join(format!("api/measurements/{user_id}").as_str()).unwrap();
+
+        let response = self.client
+            .get(url)
+            .bearer_auth(self.access_token.clone().unwrap())
+            .headers(self.headers.clone())
+            .send()
+            .await?;
+
+        let response_text = response.text().await?;
+
+        dbg!(response_text);
+
+        Ok(())
+    }
+
+    pub async fn get_logs(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let user_id = &*self.user_id.clone().unwrap();
+        let url = self.url.join(format!("api/logs/{user_id}").as_str()).unwrap();
 
         let response = self.client
             .get(url)
