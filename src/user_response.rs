@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
+#[allow(dead_code, unused)]
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct UserResponse {
     #[serde(rename = "_links")]
@@ -33,14 +34,14 @@ pub struct UserResponse {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Embedded {
-    pub measurement: Vec<Value>,
+    pub measurement: Option<Vec<Value>>,
     #[serde(rename = "measuredValue")]
-    pub measured_value: Vec<Value>,
-    pub template: Vec<Value>,
-    pub log: Vec<Log>,
-    pub tag: Vec<Value>,
-    pub folder: Vec<Value>,
-    pub widget: Vec<Value>,
+    pub measured_value: Option<Vec<Value>>,
+    pub template: Option<Vec<Value>>,
+    pub log: Option<Vec<Log>>,
+    pub tag: Option<Vec<Value>>,
+    pub folder: Option<Vec<Value>>,
+    pub widget: Option<Vec<Value>>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -71,6 +72,19 @@ pub struct Name {
     pub custom: Option<String>,
 }
 
+// implement Display for Name
+impl std::fmt::Display for Name {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match &self.en {
+            Some(en) => write!(f, "{}", en),
+            None => match &self.custom {
+                Some(custom) => write!(f, "{}", custom),
+                None => write!(f, "Unknown"),
+            },
+        }
+    }
+}
+
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LogEmbedded {
     #[serde(rename = "cellSetGroup")]
@@ -89,8 +103,7 @@ pub struct CellSetGroup {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct CellSetGroupEmbedded {
-}
+pub struct CellSetGroupEmbedded {}
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CallSet {

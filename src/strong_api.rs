@@ -1,8 +1,25 @@
-use std::fmt;
-use reqwest::{Client, header::{HeaderMap, HeaderName, HeaderValue}, Url};
+use crate::user_response::UserResponse;
+use reqwest::{
+    Client, Url,
+    header::{HeaderMap, HeaderName, HeaderValue},
+};
 use serde::Deserialize;
 use serde_json::json;
-use crate::user_response::UserResponse;
+use std::fmt;
+
+#[derive(Debug, Deserialize)]
+struct ApiErrorResponse {
+    code: String,
+    description: String,
+}
+
+impl fmt::Display for ApiErrorResponse {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}: {}", self.code, self.description)
+    }
+}
+
+impl std::error::Error for ApiErrorResponse {}
 
 #[derive(Debug)]
 pub struct StrongApi {
@@ -24,6 +41,8 @@ pub struct LoginResponse {
     user_id: Option<String>,
 }
 
+#[allow(dead_code)]
+#[derive(Debug)]
 pub enum Includes {
     Log,
     Measurement,
@@ -31,7 +50,7 @@ pub enum Includes {
     Widget,
     Template,
     Folder,
-    MeasuredValue
+    MeasuredValue,
 }
 
 impl fmt::Display for Includes {
@@ -50,15 +69,29 @@ impl fmt::Display for Includes {
 }
 
 impl StrongApi {
-
     /// Creates a new StrongApi instance with the provided backend URL.
     pub fn new(url: Url) -> Self {
         let mut headers = HeaderMap::new();
-        headers.insert(HeaderName::from_static("user-agent"), HeaderValue::from_static("Strong Android"));
-        headers.insert(HeaderName::from_static("content-type"), HeaderValue::from_static("application/json"));
-        headers.insert(HeaderName::from_static("accept"), HeaderValue::from_static("application/json"));
-        headers.insert(HeaderName::from_static("x-client-build"), HeaderValue::from_static("600013"));
-        headers.insert(HeaderName::from_static("x-client-platform"), HeaderValue::from_static("android"));
+        headers.insert(
+            HeaderName::from_static("user-agent"),
+            HeaderValue::from_static("Strong Android"),
+        );
+        headers.insert(
+            HeaderName::from_static("content-type"),
+            HeaderValue::from_static("application/json"),
+        );
+        headers.insert(
+            HeaderName::from_static("accept"),
+            HeaderValue::from_static("application/json"),
+        );
+        headers.insert(
+            HeaderName::from_static("x-client-build"),
+            HeaderValue::from_static("600013"),
+        );
+        headers.insert(
+            HeaderName::from_static("x-client-platform"),
+            HeaderValue::from_static("android"),
+        );
 
         Self {
             url,
@@ -71,21 +104,24 @@ impl StrongApi {
     }
 
     /// Logs in to the Strong backend using the provided username and password.
-    pub async fn login(&mut self, username: &str, password: &str) -> Result<(), Box<dyn std::error::Error>> {
-        let url = self.url.join("auth/login").unwrap();
-
+    pub async fn login(
+        &mut self,
+        username: &str,
+        password: &str,
+    ) -> Result<(), Box<dyn std::error::Error>> {
+        let url = self.url.join("auth/login")?;
         let body = json!({
             "usernameOrEmail": username,
             "password": password
         });
 
-        let response = self.client
+        let response = self
+            .client
             .post(url)
             .headers(self.headers.clone())
             .json(&body)
             .send()
             .await?;
-
         let response_text = response.text().await?;
 
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
@@ -97,28 +133,28 @@ impl StrongApi {
         Ok(())
     }
 
-    /// Refreshes the access token using the access and refresh token which were obtained during login.
-    /// Should be called when you receive a 401 Unauthorized response from the Strong backend.
+    /// Refreshes the access token using tokens obtained during login.
     pub async fn refresh(&mut self) -> Result<(), Box<dyn std::error::Error>> {
-        let url = self.url.join("auth/login/refresh").unwrap();
-
+        let url = self.url.join("auth/login/refresh")?;
         let body = json!({
             "accessToken": self.access_token,
             "refreshToken": self.refresh_token
         });
 
-        let response = self.client
+        // Ensure the access token exists
+        let access_token = self.access_token.clone().ok_or("Missing access token")?;
+        let response = self
+            .client
             .post(url)
-            .bearer_auth(self.access_token.clone().unwrap())
+            .bearer_auth(&access_token)
             .headers(self.headers.clone())
             .json(&body)
             .send()
             .await?;
 
-        dbg!(response.status());
-
+        // Log the status (consider replacing with proper logging)
+        eprintln!("Refresh status: {}", response.status());
         let response_text = response.text().await?;
-
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
 
         self.access_token = parsed.access_token;
@@ -129,27 +165,25 @@ impl StrongApi {
 
     #[cfg(feature = "full")]
     pub async fn refresh_by_tokens(
-        &mut self, access_token: String,
-        refresh_token: String
+        &mut self,
+        access_token: String,
+        refresh_token: String,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        let url = self.url.join("auth/login/refresh").unwrap();
-
+        let url = self.url.join("auth/login/refresh")?;
         let body = json!({
             "accessToken": access_token.clone(),
             "refreshToken": refresh_token,
         });
 
-        let response = self.client
+        let response = self
+            .client
             .post(url)
-            .bearer_auth(access_token)
+            .bearer_auth(&access_token)
             .headers(self.headers.clone())
             .json(&body)
             .send()
             .await?;
-
-
         let response_text = response.text().await?;
-
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
 
         self.access_token = parsed.access_token;
@@ -158,66 +192,75 @@ impl StrongApi {
         Ok(())
     }
 
-    pub async fn get_user(&self, continuation: &str, limit: i16, includes: Vec<Includes>) -> Result<UserResponse, Box<dyn std::error::Error>> {
-        let user_id = &*self.user_id.clone().unwrap();
-        let mut url = self.url.join(format!("api/users/{user_id}").as_str()).unwrap();
+    pub async fn get_user(
+        &self,
+        continuation: &str,
+        limit: i16,
+        includes: Vec<Includes>,
+    ) -> Result<UserResponse, Box<dyn std::error::Error>> {
+        let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
+        let mut url = self.url.join(&format!("api/users/{user_id}"))?;
 
-        url.set_query(Some(&format!("limit={}&continuation={}", limit, continuation)));
-
-        for include in includes {
-            url.set_query(Some(&format!("{}&include={}", url.query().unwrap(), include)));
+        {
+            // Use query_pairs_mut to build the query string.
+            let mut query_pairs = url.query_pairs_mut();
+            query_pairs.append_pair("limit", &limit.to_string());
+            query_pairs.append_pair("continuation", continuation);
+            for include in includes {
+                query_pairs.append_pair("include", &include.to_string());
+            }
         }
+        // Drop the mutable borrow here.
+        eprintln!("Request URL: {}", url);
 
-        dbg!(&url.to_string());
-
-        let response = self.client
+        let response = self
+            .client
             .get(url)
-            .bearer_auth(self.access_token.clone().unwrap())
+            .bearer_auth(self.access_token.as_ref().ok_or("Missing access token")?)
             .headers(self.headers.clone())
             .send()
             .await?;
 
+        // Capture the status before consuming the response.
+        let status = response.status();
         let response_text = response.text().await?;
 
+        if !status.is_success() {
+            let api_error: ApiErrorResponse = serde_json::from_str(&response_text)?;
+            return Err(Box::new(api_error));
+        }
 
         let parsed: UserResponse = serde_json::from_str(&response_text)?;
-
         Ok(parsed)
     }
 
     pub async fn get_measurements(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let user_id = &*self.user_id.clone().unwrap();
-        let url = self.url.join(format!("api/measurements/{user_id}").as_str()).unwrap();
-
-        let response = self.client
+        let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
+        let url = self.url.join(&format!("api/measurements/{user_id}"))?;
+        let response = self
+            .client
             .get(url)
-            .bearer_auth(self.access_token.clone().unwrap())
+            .bearer_auth(self.access_token.as_ref().ok_or("Missing access token")?)
             .headers(self.headers.clone())
             .send()
             .await?;
-
         let response_text = response.text().await?;
-
-        dbg!(response_text);
-
+        eprintln!("Measurements response: {}", response_text);
         Ok(())
     }
 
     pub async fn get_logs(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let user_id = &*self.user_id.clone().unwrap();
-        let url = self.url.join(format!("api/logs/{user_id}").as_str()).unwrap();
-
-        let response = self.client
+        let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
+        let url = self.url.join(&format!("api/logs/{user_id}"))?;
+        let response = self
+            .client
             .get(url)
-            .bearer_auth(self.access_token.clone().unwrap())
+            .bearer_auth(self.access_token.as_ref().ok_or("Missing access token")?)
             .headers(self.headers.clone())
             .send()
             .await?;
-
         let response_text = response.text().await?;
-
-        dbg!(response_text);
-
+        eprintln!("Logs response: {}", response_text);
         Ok(())
     }
 }
