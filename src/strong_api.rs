@@ -1,4 +1,5 @@
-use crate::user_response::UserResponse;
+use crate::json_response::UserResponse;
+use crate::json_response::MeasurementsResponse;
 use reqwest::{
     Client, Url,
     header::{HeaderMap, HeaderName, HeaderValue},
@@ -234,19 +235,40 @@ impl StrongApi {
         Ok(parsed)
     }
 
-    pub async fn get_measurements(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
-        let url = self.url.join(&format!("api/measurements/{user_id}"))?;
+    pub async fn get_measurements(&self) -> Result<MeasurementsResponse, Box<dyn std::error::Error>> {
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            HeaderName::from_static("user-agent"),
+            HeaderValue::from_static("Strong Android"),
+        );
+        headers.insert(
+            HeaderName::from_static("content-type"),
+            HeaderValue::from_static("application/json"),
+        );
+        headers.insert(
+            HeaderName::from_static("accept"),
+            HeaderValue::from_static("application/json"),
+        );
+        headers.insert(
+            HeaderName::from_static("x-client-build"),
+            HeaderValue::from_static("600013"),
+        );
+        headers.insert(
+            HeaderName::from_static("x-client-platform"),
+            HeaderValue::from_static("android"),
+        );
+
+        let url = self.url.join(&"api/measurements?count=500".to_string())?;
         let response = self
             .client
             .get(url)
-            .bearer_auth(self.access_token.as_ref().ok_or("Missing access token")?)
-            .headers(self.headers.clone())
+            .headers(headers.clone())
             .send()
             .await?;
         let response_text = response.text().await?;
-        eprintln!("Measurements response: {}", response_text);
-        Ok(())
+
+        let response: MeasurementsResponse = serde_json::from_str(&response_text)?;
+        Ok(response)
     }
 
     pub async fn get_logs(&self) -> Result<(), Box<dyn std::error::Error>> {
@@ -260,6 +282,7 @@ impl StrongApi {
             .send()
             .await?;
         let response_text = response.text().await?;
+
         eprintln!("Logs response: {}", response_text);
         Ok(())
     }

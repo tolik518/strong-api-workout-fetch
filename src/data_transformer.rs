@@ -1,4 +1,5 @@
-use crate::user_response::Log;
+use std::collections::HashMap;
+use crate::json_response::{Log, Measurement, MeasurementsResponse, Name};
 
 #[allow(dead_code, unused)]
 #[derive(Debug)]
@@ -15,6 +16,7 @@ pub struct Set {
 pub struct Exercise {
     pub(crate) id: String,
     pub(crate) sets: Vec<Set>,
+    pub(crate) name: Name,
 }
 
 #[allow(dead_code, unused)]
@@ -30,17 +32,30 @@ pub struct Workout {
 
 /// A trait for transforming raw API log data into domain-specific Workouts.
 pub trait DataTransformer {
-    fn transform(&self, logs: &Option<Vec<Log>>) -> Result<Vec<Workout>, serde_json::Error>;
+    fn get_measurements_from_logs(&self, logs: &Option<Vec<Log>>, measurements_response: &Option<MeasurementsResponse>) -> Result<Vec<Workout>, serde_json::Error>;
 }
 
 pub(crate) struct DataTransformerImpl;
 
 impl DataTransformer for DataTransformerImpl {
-    fn transform(&self, logs_option: &Option<Vec<Log>>) -> Result<Vec<Workout>, serde_json::Error> {
-        let mut logs = match logs_option {
+    fn get_measurements_from_logs(
+        &self,
+        logs_option: &Option<Vec<Log>>,
+        measurements_response: &Option<MeasurementsResponse>
+    ) -> Result<Vec<Workout>, serde_json::Error> {
+        let logs = match logs_option {
             Some(logs) => logs,
             None => return Ok(Vec::new()),
         };
+
+        //if measurements set, create lookup table
+        let mut lookup: HashMap<String, Measurement> = HashMap::new();
+        if let Some(measurements) = measurements_response {
+            println!("Measurements count: {}", measurements.embedded.measurements.len());
+            for measurement in &measurements.embedded.measurements {
+                lookup.insert(measurement.id.clone(), measurement.clone());
+            }
+        }
 
         let mut workouts = Vec::new();
 
@@ -105,10 +120,20 @@ impl DataTransformer for DataTransformerImpl {
                     }
                 }
 
+                let mut name = Name::default();
+                if let Some(exercise) = lookup.get(&cell_set_group.links) {
+                    // get id from links
+                    dbg!(&exercise);
+                    name = exercise.clone().name;
+                } else {
+                    println!("Exercise not found: {}", cell_set_group.id);
+                }
+
                 // Create an Exercise only if there is at least one valid set.
                 if !sets.is_empty() {
                     exercises.push(Exercise {
                         id: cell_set_group.id.clone(),
+                        name,
                         sets,
                     });
                 }
