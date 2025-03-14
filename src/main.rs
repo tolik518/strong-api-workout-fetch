@@ -4,9 +4,11 @@ use dotenv::dotenv;
 use serde::Deserialize;
 use serde_json::Value::String;
 use crate::strong_api::{Includes, StrongApi};
+use crate::data_transformer::{DataTransformer, DataTransformerImpl};
 
 mod strong_api;
 mod user_response;
+mod data_transformer;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -34,6 +36,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         ]
     ).await?;
 
+
+
     for log in &user.embedded.log {
         if let Some(start_date) = &log.start_date {
             print!("{}: ", start_date);
@@ -45,15 +49,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         println!("{}", display_name);
         for cell_set_group in &log.embedded.cell_set_group {
-
-            for cell_set in &cell_set_group.cell_sets {
+            /*for cell_set in &cell_set_group.cell_sets {
                 for cell in &cell_set.cells {
-                    if (cell.cell_type == "OTHER_WEIGHT" || cell.cell_type == "REPS") {
-                        println!("  {}", cell_set.id);
-                        print!("{} - {:?}", cell.cell_type, cell.value);
-                    }
+                    print!("{} - {:?} | ", cell.cell_type, cell.value);
                 }
-            }
+            }*/
+            println!();
+            dbg!(DataTransformerImpl.transform(cell_set_group).expect("TODO: panic message"));
         }
         println!();
     }
