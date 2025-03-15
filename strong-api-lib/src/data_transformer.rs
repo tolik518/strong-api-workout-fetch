@@ -26,13 +26,25 @@ pub struct Workout {
     pub exercises: Vec<Exercise>,
 }
 
-pub struct DataTransformer;
+pub struct DataTransformer {
+    measurements_response: Option<MeasurementsResponse>
+}
 
 impl DataTransformer {
+    pub fn new() -> Self {
+        Self {
+            measurements_response: None
+        }
+    }
+
+    pub fn with_measurements_response(mut self, with_measurements_response: MeasurementsResponse) -> Self {
+        self.measurements_response = Some(with_measurements_response);
+        self
+    }
+
     pub fn get_measurements_from_logs(
         &self,
-        logs_option: &Option<Vec<Log>>,
-        measurements_response: &Option<MeasurementsResponse>,
+        logs_option: &Option<Vec<Log>>
     ) -> Result<Vec<Workout>, serde_json::Error> {
         let logs = match logs_option {
             Some(logs) => logs,
@@ -41,7 +53,7 @@ impl DataTransformer {
 
         //if measurements set, create lookup table
         let mut lookup: HashMap<String, Measurement> = HashMap::new();
-        if let Some(measurements) = measurements_response {
+        if let Some(measurements) = &self.measurements_response {
             println!(
                 "Measurements count: {}/{}",
                 measurements.embedded.measurements.len(),

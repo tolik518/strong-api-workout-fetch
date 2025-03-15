@@ -103,7 +103,7 @@ impl StrongApi {
         }
     }
 
-    /// Logs in to the Strong backend using the provided username and password.
+    /// Logs in to the Strong backend using the provided username/e-mail and password.
     pub async fn login(
         &mut self,
         username: &str,
@@ -163,6 +163,7 @@ impl StrongApi {
         Ok(())
     }
 
+    /// Refreshes the access token using tokens passed as parameters.
     #[cfg(feature = "full")]
     pub async fn refresh_by_tokens(
         &mut self,
@@ -192,6 +193,10 @@ impl StrongApi {
         Ok(())
     }
 
+    /// Gets the user data for the currently logged-in user.
+    /// The `continuation` parameter is used to paginate the results.
+    /// The `limit` parameter specifies the number of results to return.
+    /// The `includes` parameter specifies which related entities to include in the response. See the `Includes` enum for possible values.
     pub async fn get_user(
         &self,
         continuation: &str,
@@ -234,6 +239,10 @@ impl StrongApi {
         Ok(parsed)
     }
 
+    /// Measurements are exercises that are available in the Strong app.
+    /// This function retrieves a list of measurements.
+    /// The `page` parameter is used to paginate the results.
+    /// Check the measurements.total and the length of measurements.embedded.measurements to determine if there are more pages.
     pub async fn get_measurements(
         &self,
         page: i8,
@@ -276,7 +285,7 @@ impl StrongApi {
         Ok(response)
     }
 
-    pub async fn get_logs(&self) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn get_logs_raw(&self) -> Result<String, Box<dyn std::error::Error>> {
         let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
         let url = self.url.join(&format!("api/logs/{user_id}"))?;
         let response = self
@@ -288,7 +297,6 @@ impl StrongApi {
             .await?;
         let response_text = response.text().await?;
 
-        eprintln!("Logs response: {}", response_text);
-        Ok(())
+        Ok(response_text)
     }
 }

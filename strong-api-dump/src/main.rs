@@ -44,8 +44,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let response_text = std::fs::read_to_string("response.json")?;
     let user: UserResponse = serde_json::from_str(&response_text)?;
 
-    let workouts = DataTransformer
-        .get_measurements_from_logs(&user.embedded.log, &Some(measurements_response))
+    let data_transformer = DataTransformer::new()
+        .with_measurements_response(measurements_response);
+
+    let workouts = data_transformer
+        .get_measurements_from_logs(&user.embedded.log)
         .expect("Couldn't read workouts");
 
     println!("Workout count: {}", workouts.len());
