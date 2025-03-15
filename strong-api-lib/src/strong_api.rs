@@ -1,5 +1,5 @@
-use crate::json_response::UserResponse;
 use crate::json_response::MeasurementsResponse;
+use crate::json_response::UserResponse;
 use reqwest::{
     Client, Url,
     header::{HeaderMap, HeaderName, HeaderValue},
@@ -235,7 +235,12 @@ impl StrongApi {
         Ok(parsed)
     }
 
-    pub async fn get_measurements(&self) -> Result<MeasurementsResponse, Box<dyn std::error::Error>> {
+    pub async fn get_measurements(
+        &self,
+        page: i8,
+    ) -> Result<MeasurementsResponse, Box<dyn std::error::Error>> {
+        let mut url = self.url.join("api/measurements")?;
+
         let mut headers = HeaderMap::new();
         headers.insert(
             HeaderName::from_static("user-agent"),
@@ -258,16 +263,17 @@ impl StrongApi {
             HeaderValue::from_static("android"),
         );
 
-        let url = self.url.join(&"api/measurements?count=500".to_string())?;
-        let response = self
-            .client
-            .get(url)
-            .headers(headers.clone())
-            .send()
-            .await?;
+        {
+            let mut query_pairs = url.query_pairs_mut();
+            query_pairs.append_pair("page", &page.to_string());
+        }
+        eprintln!("Request URL: {}", url);
+
+        let response = self.client.get(url).headers(headers.clone()).send().await?;
         let response_text = response.text().await?;
 
         let response: MeasurementsResponse = serde_json::from_str(&response_text)?;
+
         Ok(response)
     }
 

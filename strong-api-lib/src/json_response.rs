@@ -72,7 +72,6 @@ pub struct Name {
     pub custom: Option<String>,
 }
 
-// implement Display for Name
 impl std::fmt::Display for Name {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match &self.en {
@@ -81,6 +80,27 @@ impl std::fmt::Display for Name {
                 Some(custom) => write!(f, "{}", custom),
                 None => write!(f, "Unknown"),
             },
+        }
+    }
+}
+
+impl From<Name> for String {
+    fn from(name: Name) -> Self {
+        match name.en {
+            Some(en) => en,
+            None => match name.custom {
+                Some(custom) => custom,
+                None => "Unknown".to_string(),
+            },
+        }
+    }
+}
+
+impl From<String> for Name {
+    fn from(name: String) -> Self {
+        Name {
+            en: Some(name),
+            custom: None,
         }
     }
 }
@@ -94,12 +114,17 @@ pub struct LogEmbedded {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CellSetGroup {
     #[serde(rename = "_links")]
-    pub links: Value,
+    pub links: CellSetGroupLinks,
     #[serde(rename = "_embedded")]
     pub embedded: CellSetGroupEmbedded,
     pub id: String,
     #[serde(rename = "cellSets")]
     pub cell_sets: Vec<CallSet>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct CellSetGroupLinks {
+    pub measurement: Option<Link>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -196,3 +221,19 @@ pub struct EmbeddedMeasurements {
     pub measurements: Vec<Measurement>,
 }
 
+impl MeasurementsResponse {
+    pub fn merge(self, other: Self) -> Self {
+        MeasurementsResponse {
+            links: self.links,
+            total: self.total,
+            // Concatenate the measurement vectors.
+            embedded: EmbeddedMeasurements {
+                measurements: {
+                    let mut merged = self.embedded.measurements;
+                    merged.extend(other.embedded.measurements);
+                    merged
+                },
+            },
+        }
+    }
+}

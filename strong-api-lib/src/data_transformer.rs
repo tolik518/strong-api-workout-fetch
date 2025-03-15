@@ -1,47 +1,52 @@
+use crate::json_response::{CellSetGroupLinks, Log, Measurement, MeasurementsResponse, Name};
 use std::collections::HashMap;
-use crate::json_response::{Log, Measurement, MeasurementsResponse, Name};
+use std::fmt;
 
 #[allow(dead_code, unused)]
-#[derive(Debug)]
+#[derive(Default)]
 pub struct Set {
     id: String,
-    // Each exercise set may have a weight, number of reps, and optional RPE.
-    weight: Option<f32>,
-    reps: u32,
-    rpe: Option<f32>,
+    pub weight: Option<f32>,
+    pub reps: u32,
+    pub rpe: Option<f32>,
+}
+
+impl fmt::Debug for Set {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Set")
+            .field("weight", &self.weight)
+            .field("reps", &self.reps)
+            .field("rpe", &self.rpe)
+            .finish()
+    }
 }
 
 #[allow(dead_code, unused)]
 #[derive(Debug)]
 pub struct Exercise {
-    pub(crate) id: String,
-    pub(crate) sets: Vec<Set>,
-    pub(crate) name: Name,
+    id: String,
+    pub name: String,
+    pub sets: Vec<Set>,
 }
 
 #[allow(dead_code, unused)]
 #[derive(Debug)]
 pub struct Workout {
-    id: String,
-    pub(crate) exercises: Vec<Exercise>,
-    pub(crate) name: String,
-    timezone: Option<String>,
-    start_date: Option<String>,
-    end_date: Option<String>,
+    pub id: String,
+    pub name: String,
+    pub timezone: Option<String>,
+    pub start_date: Option<String>,
+    pub end_date: Option<String>,
+    pub exercises: Vec<Exercise>,
 }
 
-/// A trait for transforming raw API log data into domain-specific Workouts.
-pub trait DataTransformer {
-    fn get_measurements_from_logs(&self, logs: &Option<Vec<Log>>, measurements_response: &Option<MeasurementsResponse>) -> Result<Vec<Workout>, serde_json::Error>;
-}
+pub struct DataTransformer;
 
-pub(crate) struct DataTransformerImpl;
-
-impl DataTransformer for DataTransformerImpl {
-    fn get_measurements_from_logs(
+impl DataTransformer {
+    pub fn get_measurements_from_logs(
         &self,
         logs_option: &Option<Vec<Log>>,
-        measurements_response: &Option<MeasurementsResponse>
+        measurements_response: &Option<MeasurementsResponse>,
     ) -> Result<Vec<Workout>, serde_json::Error> {
         let logs = match logs_option {
             Some(logs) => logs,
@@ -51,7 +56,11 @@ impl DataTransformer for DataTransformerImpl {
         //if measurements set, create lookup table
         let mut lookup: HashMap<String, Measurement> = HashMap::new();
         if let Some(measurements) = measurements_response {
-            println!("Measurements count: {}", measurements.embedded.measurements.len());
+            println!(
+                "Measurements count: {}/{}",
+                measurements.embedded.measurements.len(),
+                measurements.total
+            );
             for measurement in &measurements.embedded.measurements {
                 lookup.insert(measurement.id.clone(), measurement.clone());
             }
@@ -120,13 +129,11 @@ impl DataTransformer for DataTransformerImpl {
                     }
                 }
 
-                let mut name = Name::default();
-                if let Some(exercise) = lookup.get(&cell_set_group.links) {
-                    // get id from links
-                    dbg!(&exercise);
-                    name = exercise.clone().name;
-                } else {
-                    println!("Exercise not found: {}", cell_set_group.id);
+                let mut name = String::new();
+                let workout_id = DataTransformer::get_workout_id_from_link(&cell_set_group.links);
+                // get workout name from measurements
+                if let Some(measurement) = lookup.get(&workout_id) {
+                    name = (measurement.name).to_string();
                 }
 
                 // Create an Exercise only if there is at least one valid set.
@@ -150,5 +157,15 @@ impl DataTransformer for DataTransformerImpl {
         }
 
         Ok(workouts)
+    }
+
+    fn get_workout_id_from_link(links: &CellSetGroupLinks) -> String {
+        let url = match &links.measurement {
+            Some(link) => link.href.clone(),
+            None => return String::new(),
+        };
+
+        let parts: Vec<&str> = url.split("/").collect();
+        parts[parts.len() - 1].to_string()
     }
 }
