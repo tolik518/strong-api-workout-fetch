@@ -1,35 +1,21 @@
-use crate::json_response::{CellSetGroupLinks, Log, Measurement, MeasurementsResponse, Name};
+use crate::json_response::{CellSetGroupLinks, Log, Measurement, MeasurementsResponse};
 use std::collections::HashMap;
-use std::fmt;
 
-#[allow(dead_code, unused)]
-#[derive(Default)]
+#[derive(Debug)]
 pub struct Set {
-    id: String,
+    pub id: String,
     pub weight: Option<f32>,
     pub reps: u32,
     pub rpe: Option<f32>,
 }
 
-impl fmt::Debug for Set {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("Set")
-            .field("weight", &self.weight)
-            .field("reps", &self.reps)
-            .field("rpe", &self.rpe)
-            .finish()
-    }
-}
-
-#[allow(dead_code, unused)]
 #[derive(Debug)]
 pub struct Exercise {
-    id: String,
+    pub id: String,
     pub name: String,
     pub sets: Vec<Set>,
 }
 
-#[allow(dead_code, unused)]
 #[derive(Debug)]
 pub struct Workout {
     pub id: String,
@@ -131,7 +117,7 @@ impl DataTransformer {
 
                 let mut name = String::new();
                 let workout_id = DataTransformer::get_workout_id_from_link(&cell_set_group.links);
-                // get workout name from measurements
+                // get workout name from measurements if available
                 if let Some(measurement) = lookup.get(&workout_id) {
                     name = (measurement.name).to_string();
                 }

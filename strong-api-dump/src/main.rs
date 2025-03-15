@@ -2,13 +2,16 @@ use dotenv::dotenv;
 use reqwest::Url;
 use std::env;
 use strong_api_lib::data_transformer::DataTransformer;
-use strong_api_lib::json_response::{MeasurementsResponse, UserResponse};
-use strong_api_lib::strong_api::{Includes, StrongApi};
+use strong_api_lib::json_response::UserResponse;
+use strong_api_lib::strong_api::StrongApi;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv().ok();
+
+    #[allow(unused_variables)]
     let username = env::var("STRONG_USER").expect("STRONG_USER must be set");
+    #[allow(unused_variables)]
     let password = env::var("STRONG_PASS").expect("STRONG_PASS must be set");
     let strong_backend = env::var("STRONG_BACKEND").expect("STRONG_BACKEND must be set");
     let url = Url::parse(&strong_backend).expect("STRONG_BACKEND is not a valid URL");

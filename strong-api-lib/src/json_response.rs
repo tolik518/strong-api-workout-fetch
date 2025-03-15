@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-#[allow(dead_code, unused)]
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct UserResponse {
     #[serde(rename = "_links")]

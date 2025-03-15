@@ -42,7 +42,6 @@ pub struct LoginResponse {
     user_id: Option<String>,
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
 pub enum Includes {
     Log,
