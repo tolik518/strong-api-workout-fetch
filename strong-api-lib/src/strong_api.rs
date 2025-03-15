@@ -27,9 +27,9 @@ pub struct StrongApi {
     url: Url,
     headers: HeaderMap,
     client: Client,
-    pub(crate) refresh_token: Option<String>,
-    pub(crate) access_token: Option<String>,
-    pub(crate) user_id: Option<String>,
+    pub refresh_token: Option<String>,
+    pub access_token: Option<String>,
+    pub user_id: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
