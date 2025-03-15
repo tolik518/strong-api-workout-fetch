@@ -152,8 +152,6 @@ impl StrongApi {
             .send()
             .await?;
 
-        // Log the status (consider replacing with proper logging)
-        eprintln!("Refresh status: {}", response.status());
         let response_text = response.text().await?;
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
 
@@ -215,8 +213,6 @@ impl StrongApi {
                 query_pairs.append_pair("include", &include.to_string());
             }
         }
-        // Drop the mutable borrow here.
-        eprintln!("Request URL: {}", url);
 
         let response = self
             .client
@@ -275,7 +271,6 @@ impl StrongApi {
             let mut query_pairs = url.query_pairs_mut();
             query_pairs.append_pair("page", &page.to_string());
         }
-        eprintln!("Request URL: {}", url);
 
         let response = self.client.get(url).headers(headers.clone()).send().await?;
         let response_text = response.text().await?;

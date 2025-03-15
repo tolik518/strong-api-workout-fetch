@@ -16,6 +16,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let strong_backend = env::var("STRONG_BACKEND").expect("STRONG_BACKEND must be set");
     let url = Url::parse(&strong_backend).expect("STRONG_BACKEND is not a valid URL");
 
+    let start = std::time::Instant::now();
+
     let strong_api = StrongApi::new(url);
 
     /*
@@ -44,8 +46,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let response_text = std::fs::read_to_string("response.json")?;
     let user: UserResponse = serde_json::from_str(&response_text)?;
 
-    let data_transformer = DataTransformer::new()
-        .with_measurements_response(measurements_response);
+    println!(
+        "Measurements count: {}/{}",
+        &measurements_response.embedded.measurements.len(),
+        &measurements_response.total
+    );
+
+    let data_transformer = DataTransformer::new().with_measurements_response(measurements_response);
 
     let workouts = data_transformer
         .get_measurements_from_logs(&user.embedded.log)
@@ -62,6 +69,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             });
         });
     });
+
+    let end = start.elapsed();
+
+    println!("Time elapsed: {:?}", end);
 
     Ok(())
 }

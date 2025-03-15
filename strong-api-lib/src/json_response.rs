@@ -118,7 +118,7 @@ pub struct CellSetGroup {
     pub embedded: CellSetGroupEmbedded,
     pub id: String,
     #[serde(rename = "cellSets")]
-    pub cell_sets: Vec<CallSet>,
+    pub cell_sets: Vec<CellSet>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -130,7 +130,7 @@ pub struct CellSetGroupLinks {
 pub struct CellSetGroupEmbedded {}
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct CallSet {
+pub struct CellSet {
     pub id: String,
     pub cells: Vec<Cell>,
     #[serde(rename = "isCompleted")]
