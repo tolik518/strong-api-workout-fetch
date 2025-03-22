@@ -12,5 +12,10 @@ The URL to the API backend is not provided here, but you can find it through the
     
     STRONG_USER=your_strong_user
     STRONG_PASS=your_strong_pass
+
+    CLICKHOUSE_HOST=clickhouse
+    CLICKHOUSE_USER=default
+    CLICKHOUSE_PASS=
+    CLICKHOUSE_TABLE=strong
     ```
 3. Run with `cargo run`

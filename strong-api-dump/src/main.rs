@@ -1,9 +1,11 @@
+mod clickhouse_saver;
+
 use dotenv::dotenv;
 use reqwest::Url;
 use std::env;
 use strong_api_lib::data_transformer::DataTransformer;
 use strong_api_lib::json_response::UserResponse;
-use strong_api_lib::strong_api::StrongApi;
+use strong_api_lib::strong_api::{Includes, StrongApi};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -18,13 +20,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let start = std::time::Instant::now();
 
-    let strong_api = StrongApi::new(url);
+    let mut strong_api = StrongApi::new(url);
+    let mut clickhouse_saver = clickhouse_saver::ClickHouseSaver::new(
+        env::var("CLICKHOUSE_URL").expect("CLICKHOUSE_URL must be set").as_str(),
+        env::var("CLICKHOUSE_PASS").expect("CLICKHOUSE_PASS must be set").as_str(),
+        env::var("CLICKHOUSE_USER").expect("CLICKHOUSE_USER must be set").as_str(),
+        env::var("CLICKHOUSE_TABLE").expect("CLICKHOUSE_TABLE must be set").as_str(),
+    );
 
-    /*
     strong_api
         .login(username.as_str(), password.as_str())
         .await?;
-    */
 
     let measurements_response;
     // check if measurements.json file exist, if not, fetch the data from the API
@@ -41,10 +47,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         measurements_response = serde_json::from_str(&measurements_json)?;
     }
 
-    //let user = strong_api.get_user("", 500, vec![Includes::Log]).await?;
+    let user = strong_api.get_user("", 500, vec![Includes::Log]).await?;
 
-    let response_text = std::fs::read_to_string("response.json")?;
-    let user: UserResponse = serde_json::from_str(&response_text)?;
+    //let response_text = std::fs::read_to_string("response.json")?;
+    //let user: UserResponse = serde_json::from_str(&response_text)?;
 
     println!(
         "Measurements count: {}/{}",
@@ -62,6 +68,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     workouts.iter().for_each(|workout| {
         println!("Workout: {}", workout.name);
+        println!("Date: {:?}", workout.start_date);
         workout.exercises.iter().for_each(|exercise| {
             println!("Name: {}", exercise.name);
             exercise.sets.iter().for_each(|set| {
