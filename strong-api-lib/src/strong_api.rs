@@ -1,26 +1,11 @@
-use crate::json_response::MeasurementsResponse;
+use crate::json_response::{ApiErrorResponse, LoginResponse, MeasurementsResponse};
 use crate::json_response::UserResponse;
 use reqwest::{
     Client, Url,
     header::{HeaderMap, HeaderName, HeaderValue},
 };
-use serde::Deserialize;
 use serde_json::json;
 use std::fmt;
-
-#[derive(Debug, Deserialize)]
-struct ApiErrorResponse {
-    code: String,
-    description: String,
-}
-
-impl fmt::Display for ApiErrorResponse {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}: {}", self.code, self.description)
-    }
-}
-
-impl std::error::Error for ApiErrorResponse {}
 
 #[derive(Debug)]
 pub struct StrongApi {
@@ -30,16 +15,6 @@ pub struct StrongApi {
     pub refresh_token: Option<String>,
     pub access_token: Option<String>,
     pub user_id: Option<String>,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct LoginResponse {
-    #[serde(rename = "accessToken")]
-    access_token: Option<String>,
-    #[serde(rename = "refreshToken")]
-    refresh_token: Option<String>,
-    #[serde(rename = "userId")]
-    user_id: Option<String>,
 }
 
 #[derive(Debug)]
@@ -71,7 +46,19 @@ impl fmt::Display for Includes {
 impl StrongApi {
     /// Creates a new StrongApi instance with the provided backend URL.
     pub fn new(url: Url) -> Self {
-        let mut headers = HeaderMap::new();
+        Self {
+            url,
+            headers: Self::default_headers(),
+            client: Client::new(),
+            refresh_token: None,
+            access_token: None,
+            user_id: None,
+        }
+    }
+
+    /// Creates the default headers used for API requests.
+    fn default_headers() -> HeaderMap {
+        let mut headers = HeaderMap::with_capacity(5);
         headers.insert(
             HeaderName::from_static("user-agent"),
             HeaderValue::from_static("Strong Android"),
@@ -92,15 +79,7 @@ impl StrongApi {
             HeaderName::from_static("x-client-platform"),
             HeaderValue::from_static("android"),
         );
-
-        Self {
-            url,
-            headers,
-            client: Client::new(),
-            refresh_token: None,
-            access_token: None,
-            user_id: None,
-        }
+        headers
     }
 
     /// Logs in to the Strong backend using the provided username/e-mail and password.
@@ -201,7 +180,10 @@ impl StrongApi {
         limit: i16,
         includes: Vec<Includes>,
     ) -> Result<UserResponse, Box<dyn std::error::Error>> {
-        let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
+        let user_id = self
+            .user_id
+            .as_ref()
+            .ok_or("Missing user id. Use `login` before calling `get_user`")?;
         let mut url = self.url.join(&format!("api/users/{user_id}"))?;
 
         {
@@ -225,6 +207,15 @@ impl StrongApi {
         // Capture the status before consuming the response.
         let status = response.status();
         let response_text = response.text().await?;
+
+        // write the response to a file, named after the timestamp
+        let timestamp = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_secs();
+
+        let filename = format!("response_{}.json", timestamp);
+        std::fs::write(&filename, &response_text)?;
 
         if !status.is_success() {
             let api_error: ApiErrorResponse = serde_json::from_str(&response_text)?;

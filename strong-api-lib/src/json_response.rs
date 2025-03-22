@@ -1,5 +1,30 @@
+use std::fmt;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+
+#[derive(Debug, Deserialize)]
+pub struct ApiErrorResponse {
+    pub code: String,
+    pub description: String,
+}
+
+impl fmt::Display for ApiErrorResponse {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}: {}", self.code, self.description)
+    }
+}
+
+impl std::error::Error for ApiErrorResponse {}
+
+#[derive(Debug, Deserialize)]
+pub struct LoginResponse {
+    #[serde(rename = "accessToken")]
+    pub access_token: Option<String>,
+    #[serde(rename = "refreshToken")]
+    pub refresh_token: Option<String>,
+    #[serde(rename = "userId")]
+    pub user_id: Option<String>,
+}
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct UserResponse {
