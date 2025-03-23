@@ -1,22 +1,31 @@
 use clickhouse::Row;
-use chrono::NaiveDateTime;
+use serde::{Deserialize, Serialize};
 use std::error::Error;
 use strong_api_lib::data_transformer::Workout;
+use time::OffsetDateTime;
+use time::format_description::well_known::Rfc3339;
+use time::macros::format_description;
+use uuid::Uuid;
 
 /// This flattened struct represents one set with its workout and exercise context.
-#[derive(Row, Debug)]
+#[derive(Row, Serialize, Deserialize, Debug)]
 pub struct WorkoutSet {
-    pub workout_id: String,
+    #[serde(with = "clickhouse::serde::uuid")]
+    pub workout_id: Uuid,
     pub workout_name: String,
-    pub timezone: Option<String>,
-    pub start_date: Option<NaiveDateTime>,
-    pub end_date: Option<NaiveDateTime>,
-    pub exercise_id: String,
+    pub timezone: String,
+    #[serde(with = "clickhouse::serde::time::datetime64::millis")]
+    pub start_date: OffsetDateTime,
+    #[serde(with = "clickhouse::serde::time::datetime64::millis")]
+    pub end_date: OffsetDateTime,
+    #[serde(with = "clickhouse::serde::uuid")]
+    pub exercise_id: Uuid,
     pub exercise_name: String,
-    pub set_id: String,
-    pub weight: Option<f32>,
+    #[serde(with = "clickhouse::serde::uuid")]
+    pub set_id: Uuid,
+    pub weight: f32,
     pub reps: u32,
-    pub rpe: Option<f32>,
+    pub rpe: f32,
 }
 
 pub struct ClickHouseSaver {
@@ -25,12 +34,19 @@ pub struct ClickHouseSaver {
 }
 
 impl ClickHouseSaver {
-    pub fn new(url: &str, username: &str, password: &str, table_name: &str) -> Self {
+    pub fn new(
+        url: &str,
+        username: &str,
+        password: &str,
+        database: &str,
+        table_name: &str,
+    ) -> Self {
         Self {
             client: clickhouse::Client::default()
                 .with_url(url)
                 .with_user(username)
-                .with_password(password),
+                .with_password(password)
+                .with_database(database),
             table_name: table_name.to_string(),
         }
     }
@@ -45,37 +61,49 @@ impl ClickHouseSaver {
     ///
     /// A Result indicating success or any error encountered.
     pub async fn save_workout(&self, workout: &Workout) -> Result<(), Box<dyn Error>> {
-        let mut rows = Vec::new();
+        let mut insert = self.client.insert(&self.table_name)?;
 
-        // Flatten the data from the nested Workout structure.
         for exercise in &workout.exercises {
             for set in &exercise.sets {
-                let start_dt = workout.start_date.as_ref()
-                    .and_then(|s| NaiveDateTime::parse_from_str(s, "%Y-%m-%dT%H:%M:%S").ok());
-                let end_dt = workout.end_date.as_ref()
-                    .and_then(|s| NaiveDateTime::parse_from_str(s, "%Y-%m-%dT%H:%M:%S").ok());
+                let start_dt = OffsetDateTime::parse(
+                    &workout.start_date.clone().unwrap_or_default(),
+                    &Rfc3339,
+                )?;
+                let end_dt = OffsetDateTime::parse(
+                    &workout.start_date.clone().unwrap_or_default(),
+                    &Rfc3339,
+                )?;
 
-                rows.push(WorkoutSet {
-                    workout_id: workout.id.clone(),
+                dbg!(&start_dt);
+
+                let row = WorkoutSet {
+                    workout_id: Uuid::parse_str(&workout.id).expect("workout_id UUID parse failed"),
                     workout_name: workout.name.clone(),
-                    timezone: workout.timezone.clone(),
+                    timezone: workout
+                        .timezone
+                        .clone()
+                        .unwrap_or_else(|| "Europe/Berlin".to_string()),
                     start_date: start_dt,
                     end_date: end_dt,
-                    exercise_id: exercise.id.clone(),
+                    exercise_id: Uuid::parse_str(&exercise.id).expect("exercise UUID parse failed"),
                     exercise_name: exercise.name.clone(),
-                    set_id: set.id.clone(),
-                    weight: set.weight,
+                    set_id: Uuid::parse_str(&set.id).expect("set UUID parse failed"),
+                    weight: set.weight.unwrap_or(0.0),
                     reps: set.reps,
-                    rpe: set.rpe,
-                });
+                    rpe: set.rpe.unwrap_or(0.0),
+                };
+
+                insert.write(&row).await?;
             }
         }
 
-        let mut inserter = self.client.insert(&self.table_name).await?;
-        inserter.write(&rows).await?;
-        inserter.end().await?;
+        insert.end().await?;
 
-        println!("Workout data inserted successfully!");
+        println!("Workout {} imported successfully", workout.id);
         Ok(())
     }
+}
+
+fn escape_string(s: &str) -> String {
+    s.to_string()
 }

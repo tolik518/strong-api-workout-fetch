@@ -3,7 +3,7 @@ services:
     image: clickhouse/clickhouse-server:latest
     container_name: clickhouse-server
     volumes:
-      - ./clickhouse-data:/var/lib/clickhouse
+#      - ./clickhouse-data:/var/lib/clickhouse
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "8123:8123"
