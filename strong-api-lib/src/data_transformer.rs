@@ -1,4 +1,6 @@
-use crate::json_response::{CellSet, CellSetGroup, CellSetGroupLinks, Log, Measurement, MeasurementsResponse};
+use crate::json_response::{
+    CellSet, CellSetGroup, CellSetGroupLinks, Log, Measurement, MeasurementsResponse,
+};
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -55,7 +57,8 @@ impl DataTransformer {
         };
 
         let lookup = self.create_measurement_lookup();
-        let workouts = logs.iter()
+        let workouts = logs
+            .iter()
             .map(|log| self.process_log_to_workout(log, &lookup))
             .collect();
 
@@ -126,7 +129,9 @@ impl DataTransformer {
 
     fn process_cell_set_to_set(&self, cell_set: &CellSet) -> Option<Set> {
         // Skip rest timers or notes
-        if cell_set.cells.iter()
+        if cell_set
+            .cells
+            .iter()
             .any(|cell| matches!(cell.cell_type.as_str(), "REST_TIMER" | "NOTE"))
         {
             return None;
