@@ -3,4 +3,4 @@
 .idea
 response.json
 /docker/clickhouse-data
-/response.json
+/response_*.json
