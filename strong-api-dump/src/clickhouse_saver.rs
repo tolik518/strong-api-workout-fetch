@@ -4,7 +4,6 @@ use std::error::Error;
 use strong_api_lib::data_transformer::Workout;
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
-use time::macros::format_description;
 use uuid::Uuid;
 
 /// This flattened struct represents one set with its workout and exercise context.
