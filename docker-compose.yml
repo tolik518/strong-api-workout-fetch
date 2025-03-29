@@ -1,0 +1,15 @@
+services:
+  strong-api-fetch:
+    image: strong-api-fetch:latest
+    build:
+        context: .
+    container_name: strong-api-fetch
+    volumes:
+      - ./:/usr/strong-api-fetch
+      - ./log.log:/etc/cron.d/strong-api-fetch
+    networks:
+      - strong-api-network
+
+networks:
+  strong-api-network:
+    driver: bridge

@@ -208,15 +208,6 @@ impl StrongApi {
         let status = response.status();
         let response_text = response.text().await?;
 
-        // write the response to a file, named after the timestamp
-        let timestamp = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
-            .as_secs();
-
-        let filename = format!("response_{}.json", timestamp);
-        std::fs::write(&filename, &response_text)?;
-
         if !status.is_success() {
             let api_error: ApiErrorResponse = serde_json::from_str(&response_text)?;
             return Err(Box::new(api_error));
@@ -236,34 +227,12 @@ impl StrongApi {
     ) -> Result<MeasurementsResponse, Box<dyn std::error::Error>> {
         let mut url = self.url.join("api/measurements")?;
 
-        let mut headers = HeaderMap::new();
-        headers.insert(
-            HeaderName::from_static("user-agent"),
-            HeaderValue::from_static("Strong Android"),
-        );
-        headers.insert(
-            HeaderName::from_static("content-type"),
-            HeaderValue::from_static("application/json"),
-        );
-        headers.insert(
-            HeaderName::from_static("accept"),
-            HeaderValue::from_static("application/json"),
-        );
-        headers.insert(
-            HeaderName::from_static("x-client-build"),
-            HeaderValue::from_static("600013"),
-        );
-        headers.insert(
-            HeaderName::from_static("x-client-platform"),
-            HeaderValue::from_static("android"),
-        );
-
         {
             let mut query_pairs = url.query_pairs_mut();
             query_pairs.append_pair("page", &page.to_string());
         }
 
-        let response = self.client.get(url).headers(headers.clone()).send().await?;
+        let response = self.client.get(url).headers(Self::default_headers()).send().await?;
         let response_text = response.text().await?;
 
         let response: MeasurementsResponse = serde_json::from_str(&response_text)?;

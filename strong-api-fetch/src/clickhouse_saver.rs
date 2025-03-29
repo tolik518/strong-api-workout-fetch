@@ -1,7 +1,7 @@
 use clickhouse::Row;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
-use strong_api_lib::data_transformer::Workout;
+use strong_api_lib::data_transformer::{Exercise, Workout};
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
 use uuid::Uuid;
@@ -19,9 +19,11 @@ pub struct WorkoutSet {
     pub end_date: OffsetDateTime,
     #[serde(with = "clickhouse::serde::uuid")]
     pub exercise_id: Uuid,
+    pub exercise_nr: u32,
     pub exercise_name: String,
     #[serde(with = "clickhouse::serde::uuid")]
     pub set_id: Uuid,
+    pub set_nr: u32,
     pub weight: f32,
     pub reps: u32,
     pub rpe: f32,
@@ -63,17 +65,19 @@ impl ClickHouseSaver {
         let mut insert = self.client.insert(&self.table_name)?;
 
         for exercise in &workout.exercises {
+            let exercise_nr = workout.exercises.iter().position(|x| x.id == exercise.id).unwrap() as u32;
             for set in &exercise.sets {
                 let start_dt = OffsetDateTime::parse(
                     &workout.start_date.clone().unwrap_or_default(),
                     &Rfc3339,
                 )?;
+
                 let end_dt = OffsetDateTime::parse(
                     &workout.start_date.clone().unwrap_or_default(),
                     &Rfc3339,
                 )?;
 
-                dbg!(&start_dt);
+                let set_nr = exercise.sets.iter().position(|x| x.id == set.id).unwrap() as u32;
 
                 let row = WorkoutSet {
                     workout_id: Uuid::parse_str(&workout.id).expect("workout_id UUID parse failed"),
@@ -85,8 +89,10 @@ impl ClickHouseSaver {
                     start_date: start_dt,
                     end_date: end_dt,
                     exercise_id: Uuid::parse_str(&exercise.id).expect("exercise UUID parse failed"),
+                    exercise_nr,
                     exercise_name: exercise.name.clone(),
                     set_id: Uuid::parse_str(&set.id).expect("set UUID parse failed"),
+                    set_nr,
                     weight: set.weight.unwrap_or(0.0),
                     reps: set.reps,
                     rpe: set.rpe.unwrap_or(0.0),

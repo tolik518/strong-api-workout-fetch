@@ -1,4 +1,4 @@
-# Strong API data dump
+# Strong API data fetch
 
 This repo provides access to the Strong API to save workouts to your own database.
 The URL to the API backend is not provided here, but you can find it through the Strong app.

@@ -9,11 +9,13 @@ CREATE TABLE workout_sets
     start_date    DateTime64(3) DEFAULT now(),
     end_date      DateTime64(3) DEFAULT now(),
     exercise_id   UUID,
+    exercise_nr   UInt32,
     exercise_name String,
     set_id        UUID,
+    set_nr        UInt32,
     weight        Float32 DEFAULT 0.0,
     reps          UInt32,
     rpe           Float32 DEFAULT 0.0
 )
     ENGINE = ReplacingMergeTree()
-ORDER BY (start_date, workout_id, exercise_id, set_id);
+ORDER BY (start_date, workout_id, exercise_nr, exercise_id, set_nr);

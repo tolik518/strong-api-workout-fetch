@@ -2,5 +2,5 @@
 resolver = "3"
 members = [
     "strong-api-lib",
-    "strong-api-dump"
+    "strong-api-fetch"
 ]
