@@ -2,5 +2,6 @@
 .env
 .idea
 response.json
-/docker-clickhouse/clickhouse-data
+/clickhouse/data
 /response_*.json
+*.log
