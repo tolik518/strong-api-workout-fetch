@@ -5,6 +5,7 @@ The URL to the API backend is not provided here, but you can find it through the
 
 ## How to use
 
+0. Have your Clckhouse database ready and running
 1. Clone this repo
 2. Create .env file in the root directory with the following content:
     ```ini
@@ -19,3 +20,9 @@ The URL to the API backend is not provided here, but you can find it through the
     CLICKHOUSE_TABLE=strong
     ```
 3. Run with `cargo run`
+
+### Alternatively: Use Docker Compose to run the service:
+
+1. Make sure you have Docker and Docker Compose installed.
+2. Create a `.env` file in the root directory with the same content as above.
+3Start the service with `docker compose up -d`.
