@@ -1,7 +1,9 @@
 # Strong APP Workout Fetch
 
-This repo provides access to the Strong API to save workouts to store in your own database.  
-The URL to the API backend is not provided here because it's not entirely public and because of possible legal implications.
+This is a Rust-based service to fetch workouts from the [Strong App](https://www.strong.app/) (available for [Apple](https://apps.apple.com/us/app/strong-workout-tracker-gym-log/id464254577) and [Android](https://play.google.com/store/apps/details?id=io.strongapp.strong)) and store them in a Clickhouse database.
+
+
+The URL to the API backend is not provided here, for now, because it's not entirely public and because of possible legal implications.
 
 ## How to use
 
