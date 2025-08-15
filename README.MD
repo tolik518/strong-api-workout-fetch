@@ -5,6 +5,7 @@ This is a Rust-based service to fetch workouts from the [Strong App](https://www
 
 The URL to the API backend is not provided here, for now, because it's not entirely public and because of possible legal implications.
 
+If using docker-compose, the service will run 18:00, 18:30, 19:00, 19:30, 20:00 and 20:30, but you can change this in the `Dockerfile`.
 ## How to use
 
 0. Have your Clckhouse database ready and running
@@ -28,3 +29,5 @@ The URL to the API backend is not provided here, for now, because it's not entir
 1. Make sure you have Docker and Docker Compose installed.
 2. Create a `.env` file in the root directory with the same content as above.
 3Start the service with `docker compose up -d`.
+
+

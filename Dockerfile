@@ -14,7 +14,7 @@ WORKDIR /usr/strong-api-fetch
 COPY --from=builder /usr/local/cargo/bin/strong-api-fetch /usr/bin/strong-api-fetch
 
 # Add the cron job: run every 12 hours and log output
-RUN echo "*/1 * * * * /usr/bin/strong-api-fetch >> /var/log/cron.log 2>&1" > /etc/cron.d/strong-api-fetch
+RUN echo "0,30 18-20 * * * /usr/bin/strong-api-fetch >> /var/log/cron.log 2>&1" > /etc/cron.d/strong-api-fetch
 
 # Ensure the cron job file has proper permissions
 RUN chmod 0644 /etc/cron.d/strong-api-fetch
