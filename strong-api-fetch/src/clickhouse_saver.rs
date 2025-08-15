@@ -26,7 +26,6 @@ pub struct WorkoutSet {
     pub set_nr: u32,
     pub weight: f32,
     pub reps: u32,
-    pub rpe: f32,
 }
 
 pub struct ClickHouseSaver {
@@ -95,7 +94,6 @@ impl ClickHouseSaver {
                     set_nr,
                     weight: set.weight.unwrap_or(0.0),
                     reps: set.reps,
-                    rpe: set.rpe.unwrap_or(0.0),
                 };
 
                 insert.write(&row).await?;
@@ -107,8 +105,4 @@ impl ClickHouseSaver {
         println!("Workout {} imported successfully", workout.id);
         Ok(())
     }
-}
-
-fn escape_string(s: &str) -> String {
-    s.to_string()
 }

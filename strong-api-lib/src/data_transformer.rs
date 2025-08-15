@@ -8,7 +8,6 @@ pub struct Set {
     pub id: String,
     pub weight: Option<f32>,
     pub reps: u32,
-    pub rpe: Option<f32>,
 }
 
 #[derive(Debug)]
@@ -163,18 +162,10 @@ impl DataTransformer {
             .and_then(|s| s.parse::<u32>().ok())
             .unwrap_or(0);
 
-        let rpe = cell_set
-            .cells
-            .iter()
-            .find(|cell| cell.cell_type == "RPE")
-            .and_then(|cell| cell.value.as_ref())
-            .and_then(|s| s.parse::<f32>().ok());
-
         Some(Set {
             id: cell_set.id.clone(),
             weight,
             reps,
-            rpe,
         })
     }
 
@@ -186,5 +177,39 @@ impl DataTransformer {
 
         let parts: Vec<&str> = url.split("/").collect();
         parts[parts.len() - 1].to_string()
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use crate::json_response::{CellSetGroupLinks, Link};
+    use super::*;
+
+    #[test]
+    fn test_can_get_workout_id_from_link() {
+        let links = CellSetGroupLinks {
+            measurement: Some(
+                Link {
+                    href: "/api/users/0f9fc87d-0e60-46c6-b98d-9b1b69423218/measurements/a3f1d57d-da0e-466d-a691-c03695d39418".to_string()
+                }
+            ),
+        };
+
+        assert_eq!(
+            "a3f1d57d-da0e-466d-a691-c03695d39418".to_string(),
+            DataTransformer::get_workout_id_from_link(&links)
+        );
+    }
+
+    #[test]
+    fn test_can_get_workout_id_from_link_on_empty() {
+        let links = CellSetGroupLinks {
+            measurement: None,
+        };
+
+        assert_eq!(
+            "".to_string(),
+            DataTransformer::get_workout_id_from_link(&links)
+        );
     }
 }
