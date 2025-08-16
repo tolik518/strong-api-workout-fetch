@@ -1,6 +1,6 @@
 mod clickhouse_saver;
 
-use dotenv::dotenv;
+use dotenvy::dotenv;
 use reqwest::Url;
 use std::env;
 use std::fs;
@@ -69,14 +69,22 @@ struct Config {
 /// Load configuration values from environment variables.
 fn load_config() -> Result<Config, Box<dyn std::error::Error>> {
     Ok(Config {
-        username: env::var("STRONG_USER")?,
-        password: env::var("STRONG_PASS")?,
-        strong_backend: env::var("STRONG_BACKEND")?,
-        clickhouse_url: env::var("CLICKHOUSE_URL")?,
-        clickhouse_user: env::var("CLICKHOUSE_USER")?,
-        clickhouse_pass: env::var("CLICKHOUSE_PASS")?,
-        clickhouse_database: env::var("CLICKHOUSE_DATABASE")?,
-        clickhouse_table: env::var("CLICKHOUSE_TABLE")?,
+        username: env::var("STRONG_USER")
+            .expect("STRONG_USER must be set"),
+        password: env::var("STRONG_PASS")
+            .expect("STRONG_PASS must be set"),
+        strong_backend: env::var("STRONG_BACKEND")
+            .expect("STRONG_BACKEND must be set"),
+        clickhouse_url: env::var("CLICKHOUSE_URL")
+            .expect("CLICKHOUSE_URL must be set"),
+        clickhouse_user: env::var("CLICKHOUSE_USER")
+            .expect("CLICKHOUSE_USER must be set"),
+        clickhouse_pass: env::var("CLICKHOUSE_PASS")
+            .expect("CLICKHOUSE_PASS must be set"),
+        clickhouse_database: env::var("CLICKHOUSE_DATABASE")
+            .expect("CLICKHOUSE_DATABASE must be set"),
+        clickhouse_table: env::var("CLICKHOUSE_TABLE")
+            .expect("CLICKHOUSE_TABLE must be set"),
     })
 }
 
