@@ -13,11 +13,12 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /usr/strong-api-fetch
 COPY --from=builder /usr/local/cargo/bin/strong-api-fetch /usr/bin/strong-api-fetch
 
-# Add the cron job: run every 12 hours and log output
-RUN echo "0,30 18-20 * * * /usr/bin/strong-api-fetch >> /var/log/cron.log 2>&1" > /etc/cron.d/strong-api-fetch
+# will run the cron job every day at 18:00, 18:30, 19:00, 19:30, 20:00, and 20:30
+RUN echo "0,30 18-20 * * * root /usr/bin/strong-api-fetch >> /var/log/cron.log 2>&1" > /etc/cron.d/strong-api-fetch
 
 # Ensure the cron job file has proper permissions
-RUN chmod 0644 /etc/cron.d/strong-api-fetch
+RUN chmod 0644 /etc/cron.d/strong-api-fetch && \
+    chmod +x /usr/bin/strong-api-fetch
 
 # Install the new cron job
 RUN crontab /etc/cron.d/strong-api-fetch

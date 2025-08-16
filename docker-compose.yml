@@ -1,12 +1,10 @@
 services:
   strong-api-fetch:
-    image: strong-api-fetch:latest
     build:
-        context: .
+      context: .
     container_name: strong-api-fetch
     volumes:
       - ./:/usr/strong-api-fetch
-      - ./log.log:/etc/cron.d/strong-api-fetch
     networks:
       - service-network
 
@@ -25,7 +23,9 @@ services:
       - CLICKHOUSE_USER=tolik518
       - CLICKHOUSE_PASSWORD=admin
     networks:
-      - service-network
+      service-network:
+        aliases:
+          - clickhouse-server
 
 networks:
   service-network:
