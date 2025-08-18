@@ -1,0 +1,152 @@
+{
+  "id": 11,
+  "type": "barchart",
+  "title": "Excercises per week",
+  "gridPos": {
+    "x": 0,
+    "y": 1,
+    "h": 8,
+    "w": 24
+  },
+  "fieldConfig": {
+    "defaults": {
+      "custom": {
+        "lineWidth": 1,
+        "fillOpacity": 73,
+        "gradientMode": "none",
+        "axisPlacement": "right",
+        "axisLabel": "",
+        "axisColorMode": "series",
+        "axisBorderShow": false,
+        "scaleDistribution": {
+          "type": "linear"
+        },
+        "axisCenteredZero": false,
+        "hideFrom": {
+          "tooltip": false,
+          "viz": false,
+          "legend": false
+        },
+        "thresholdsStyle": {
+          "mode": "off"
+        },
+        "axisGridShow": true
+      },
+      "color": {
+        "mode": "thresholds"
+      },
+      "mappings": [],
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "transparent",
+            "value": null
+          },
+          {
+            "color": "light-green",
+            "value": 1
+          },
+          {
+            "value": 2,
+            "color": "green"
+          },
+          {
+            "value": 3,
+            "color": "semi-dark-green"
+          },
+          {
+            "value": 4,
+            "color": "dark-green"
+          }
+        ]
+      },
+      "fieldMinMax": false,
+      "max": 7,
+      "min": 0
+    },
+    "overrides": [
+      {
+        "matcher": {
+          "id": "byValue",
+          "options": {
+            "reducer": "count",
+            "op": "neq",
+            "value": 0
+          }
+        },
+        "properties": [
+          {
+            "id": "mappings",
+            "value": [
+              {
+                "type": "value",
+                "options": {
+                  "0": {
+                    "index": 0,
+                    "text": "​"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "pluginVersion": "11.6.1",
+  "targets": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "cegmu4gilxn28d"
+      },
+      "editorType": "sql",
+      "format": 0,
+      "meta": {
+        "builderOptions": {
+          "columns": [],
+          "database": "",
+          "limit": 1000,
+          "mode": "list",
+          "queryType": "table",
+          "table": ""
+        }
+      },
+      "pluginVersion": "4.8.2",
+      "queryType": "timeseries",
+      "rawSql": "WITH\n  'Europe/Berlin' AS tz,\n  -- Time frame of the and get the week start\n  toStartOfWeek(toDate(toTimeZone(toDateTime(intDiv(${__from},1000)), tz)), 1) AS w_from,\n  toStartOfWeek(toDate(toTimeZone(toDateTime(intDiv(${__to},  1000)), tz)), 1) AS w_to,\n\n  -- All Weeks in Range\n  weeks AS (\n    SELECT addWeeks(w_from, number) AS week_start\n    FROM numbers(dateDiff('week', w_from, w_to) + 1)\n  ),\n\n  -- Real Sessions per Week\n  per_week AS (\n    SELECT\n      toStartOfWeek(toTimeZone(start_date, tz), 1) AS week_start,\n      countDistinct(workout_id)                    AS sessions\n    FROM workouts.workout_sets\n    WHERE $__timeFilter(start_date)\n    GROUP BY week_start\n  )\n\n-- Ergebnis: every week exactly once, missing zeroes added => 0, Label = Weeknumber\nSELECT\n  concat(leftPad(toString(toISOWeek(week_start)),2,'0')) AS week_label,\n  ifNull(p.sessions, 0) AS sessions\nFROM weeks w\nLEFT JOIN per_week p USING (week_start)\nORDER BY week_start;\n",
+      "refId": "A"
+    }
+  ],
+  "datasource": {
+    "type": "grafana-clickhouse-datasource",
+    "uid": "cegmu4gilxn28d"
+  },
+  "options": {
+    "orientation": "vertical",
+    "xTickLabelRotation": 0,
+    "xTickLabelSpacing": -100,
+    "showValue": "always",
+    "stacking": "none",
+    "groupWidth": 0.7,
+    "barWidth": 0.9,
+    "barRadius": 0.25,
+    "fullHighlight": false,
+    "tooltip": {
+      "mode": "single",
+      "sort": "none",
+      "hideZeros": false
+    },
+    "legend": {
+      "showLegend": false,
+      "displayMode": "list",
+      "placement": "right",
+      "calcs": []
+    },
+    "text": {},
+    "xField": "week_label",
+    "colorByField": "sessions"
+  },
+  "timeFrom": "365d"
+}

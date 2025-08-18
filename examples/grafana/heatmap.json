@@ -1,0 +1,138 @@
+{
+  "id": 7,
+  "type": "status-history",
+  "title": "Heatmap",
+  "gridPos": {
+    "x": 0,
+    "y": 9,
+    "h": 8,
+    "w": 21
+  },
+  "fieldConfig": {
+    "defaults": {
+      "custom": {
+        "lineWidth": 0,
+        "fillOpacity": 80,
+        "hideFrom": {
+          "tooltip": false,
+          "viz": false,
+          "legend": false
+        },
+        "axisPlacement": "auto"
+      },
+      "color": {
+        "mode": "thresholds"
+      },
+      "mappings": [],
+      "thresholds": {
+        "mode": "absolute",
+        "steps": [
+          {
+            "color": "#2f2f2fed",
+            "value": null
+          },
+          {
+            "color": "semi-dark-green",
+            "value": 1
+          },
+          {
+            "color": "dark-green",
+            "value": 2
+          }
+        ]
+      },
+      "fieldMinMax": false,
+      "min": 0,
+      "decimals": 0,
+      "noValue": "0"
+    },
+    "overrides": []
+  },
+  "transformations": [
+    {
+      "id": "renameByRegex",
+      "options": {
+        "regex": "value \\d(.*)",
+        "renamePattern": "$1"
+      }
+    }
+  ],
+  "pluginVersion": "11.6.1",
+  "targets": [
+    {
+      "builderOptions": {
+        "aggregates": [],
+        "columns": [
+          {
+            "alias": "*",
+            "custom": false,
+            "name": "*",
+            "type": "String"
+          }
+        ],
+        "database": "workouts",
+        "filters": [],
+        "groupBy": [],
+        "limit": 1000,
+        "meta": {},
+        "mode": "list",
+        "orderBy": [],
+        "queryType": "table",
+        "table": "workout_sets"
+      },
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "cegmu4gilxn28d"
+      },
+      "editorType": "sql",
+      "format": 0,
+      "meta": {
+        "builderOptions": {
+          "aggregates": [],
+          "columns": [
+            {
+              "alias": "*",
+              "custom": false,
+              "name": "*",
+              "type": "String"
+            }
+          ],
+          "database": "workouts",
+          "filters": [],
+          "groupBy": [],
+          "limit": 1000,
+          "meta": {},
+          "mode": "list",
+          "orderBy": [],
+          "queryType": "table",
+          "table": "workout_sets"
+        }
+      },
+      "pluginVersion": "4.8.2",
+      "queryType": "timeseries",
+      "rawSql": "WITH\n  'Europe/Berlin' AS tz,\n  toStartOfWeek(toDate(toTimeZone(toDateTime(intDiv(${__from},1000)), tz)), 1) AS w_from,\n  toStartOfWeek(toDate(toTimeZone(toDateTime(intDiv(${__to},  1000)), tz)), 1) AS w_to,\n\n  weeks AS (\n    SELECT addWeeks(w_from, number) AS week_start\n    FROM numbers(dateDiff('week', w_from, w_to) + 1)\n  ),\n\n  per_day AS (\n    SELECT\n      toDate(toTimeZone(start_date, tz)) AS day,\n      countDistinct(workout_id)          AS sessions\n    FROM workouts.workout_sets\n    WHERE $__timeFilter(start_date)\n    GROUP BY day\n  ),\n\n  grid AS (\n    /* 7 \"Slots\" per week (Mo..So) */\n    SELECT\n      w.week_start,\n      n.number AS dow0,                            -- 0..6\n      addDays(w.week_start, n.number) AS day\n    FROM weeks w\n    CROSS JOIN numbers(7) AS n\n  )\n\nSELECT\n  week_start AS time,                               -- X-Axis = Beginning of the week (Monday)\n  concat(toString(dow0+1), ' ', formatDateTime(day, '%a')) AS metric,  -- Name of the row\n  ifNull(per_day.sessions, 0) AS value\nFROM grid\nLEFT JOIN per_day USING (day)\nORDER BY time, metric;\n",
+      "refId": "A"
+    }
+  ],
+  "datasource": {
+    "type": "grafana-clickhouse-datasource",
+    "uid": "cegmu4gilxn28d"
+  },
+  "options": {
+    "showValue": "never",
+    "rowHeight": 0.85,
+    "colWidth": 0.8,
+    "legend": {
+      "showLegend": false,
+      "displayMode": "table",
+      "placement": "right"
+    },
+    "tooltip": {
+      "mode": "multi",
+      "sort": "none",
+      "hideZeros": false
+    },
+    "perPage": 0
+  },
+  "timeFrom": "365d"
+}
