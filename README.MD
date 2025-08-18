@@ -6,6 +6,18 @@ This is a Rust-based service to fetch workouts from the [Strong App](https://www
 The URL to the API backend is not provided here, for now, because it's not entirely public and because of possible legal implications.
 
 If using docker-compose, the service will run 18:00, 18:30, 19:00, 19:30, 20:00 and 20:30, but you can change this in the `Dockerfile`.
+
+## Why?
+
+So you can do fun stuff with your workout data, like doing silly grafana dashboards. 
+For example, you can use the [Grafana Clickhouse plugin](https://grafana.com/grafana/plugins/grafana-clickhouse-datasource/) to visualize your workout data.
+
+You can make heatmaps, like the one you have on github, or you can make a dashboard that shows your progress over time, or you can make a dashboard that shows your workout history.
+
+![heatmap](./.github/heatmap.png)
+You can find the Grafana JSON for the [heatmap](./examples/heatmap.json) and for the [excercises per week](./examples/excercises_per_week.json) in the [examples](./examples) folder.
+
+
 ## How to use
 
 0. Have your Clckhouse database ready and running
