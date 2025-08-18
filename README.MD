@@ -9,13 +9,13 @@ If using docker-compose, the service will run 18:00, 18:30, 19:00, 19:30, 20:00 
 
 ## Why?
 
-So you can do fun stuff with your workout data, like doing silly grafana dashboards. 
+So you can do fun stuff with your workout data, like doing silly grafana dashboards.
 For example, you can use the [Grafana Clickhouse plugin](https://grafana.com/grafana/plugins/grafana-clickhouse-datasource/) to visualize your workout data.
 
 You can make heatmaps, like the one you have on github, or you can make a dashboard that shows your progress over time, or you can make a dashboard that shows your workout history.
 
 ![heatmap](./.github/heatmap.png)
-You can find the Grafana JSON for the [heatmap](./examples/heatmap.json) and for the [excercises per week](./examples/excercises_per_week.json) in the [examples](./examples) folder.
+You can find the Grafana JSON for the [heatmap](./examples/grafana/heatmap.json) and for the [excercises per week](./examples/grafana/excercises_per_week.json) in the [examples](./examples) folder.
 
 
 ## How to use
@@ -40,6 +40,6 @@ You can find the Grafana JSON for the [heatmap](./examples/heatmap.json) and for
 
 1. Make sure you have Docker and Docker Compose installed.
 2. Create a `.env` file in the root directory with the same content as above.
-3Start the service with `docker compose up -d`.
+   3Start the service with `docker compose up -d`.
 
 
