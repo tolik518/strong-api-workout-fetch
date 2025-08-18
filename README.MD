@@ -15,7 +15,7 @@ For example, you can use the [Grafana Clickhouse plugin](https://grafana.com/gra
 You can make heatmaps, like the one you have on github, or you can make a dashboard that shows your progress over time, or you can make a dashboard that shows your workout history.
 
 ![heatmap](./.github/heatmap.png)
-You can find the Grafana JSON for the [heatmap](./examples/grafana/heatmap.json) and for the [excercises per week](./examples/grafana/excercises_per_week.json) in the [examples](./examples) folder.
+You can find the Grafana JSON for the [heatmap](./examples/grafana/heatmap.json) and for the [excercises per week](./examples/grafana/excercises-per-week.json) in the [examples](./examples/grafana) folder.
 
 
 ## How to use
