@@ -8,6 +8,7 @@ pub struct Set {
     pub id: String,
     pub weight: Option<f32>,
     pub reps: u32,
+    pub rpe: Option<f32>,
 }
 
 #[derive(Debug)]
@@ -162,11 +163,21 @@ impl DataTransformer {
             .and_then(|s| s.parse::<u32>().ok())
             .unwrap_or(0);
 
-        Some(Set {
-            id: cell_set.id.clone(),
-            weight,
-            reps,
-        })
+        let rpe = cell_set
+            .cells
+            .iter()
+            .find(|cell| cell.cell_type == "RPE")
+            .and_then(|cell| cell.value.as_ref())
+            .and_then(|s| s.parse::<f32>().ok());
+
+        Some(
+            Set {
+                id: cell_set.id.clone(),
+                weight,
+                reps,
+                rpe,
+            }
+        )
     }
 
     fn get_workout_id_from_link(links: &CellSetGroupLinks) -> String {

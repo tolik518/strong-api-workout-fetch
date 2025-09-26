@@ -26,6 +26,7 @@ pub struct WorkoutSet {
     pub set_nr: u32,
     pub weight: f32,
     pub reps: u32,
+    pub rpe: f32,
 }
 
 pub struct ClickHouseSaver {
@@ -94,7 +95,10 @@ impl ClickHouseSaver {
                     set_nr,
                     weight: set.weight.unwrap_or(0.0),
                     reps: set.reps,
+                    rpe: set.rpe.unwrap_or(0.0),
                 };
+                // debug print set.rpe.unwrap_or(0.0)
+                println!("Inserting row: {:?}", row);
 
                 insert.write(&row).await?;
             }
