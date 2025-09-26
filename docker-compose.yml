@@ -3,6 +3,11 @@ services:
     build:
       context: .
     container_name: strong-api-fetch
+    restart: unless-stopped
+    depends_on:
+      clickhouse-server:
+        condition: service_started
+
     volumes:
       - ./:/usr/strong-api-fetch
     networks:
@@ -11,6 +16,7 @@ services:
   clickhouse-server:
     image: clickhouse/clickhouse-server:latest
     container_name: clickhouse-server
+    restart: unless-stopped
     volumes:
       - ./clickhouse/data:/var/lib/clickhouse
       - ./clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -29,3 +35,4 @@ services:
 
 networks:
   service-network:
+    external: true
