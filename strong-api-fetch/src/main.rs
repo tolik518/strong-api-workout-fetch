@@ -6,7 +6,7 @@ use std::env;
 use std::fs;
 use std::path::Path;
 use strong_api_lib::data_transformer::{DataTransformer, Workout};
-use strong_api_lib::json_response::{MeasurementsResponse, UserResponse};
+use strong_api_lib::json_response::MeasurementsResponse;
 use strong_api_lib::strong_api::{Includes, StrongApi};
 
 #[tokio::main]
@@ -30,9 +30,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Fetch user data with logs.
     let user = strong_api.get_user("", 500, vec![Includes::Log]).await?;
-    //let response_text = std::fs::read_to_string("response_1742332448.json")?;
-
-    //let user: UserResponse = serde_json::from_str(&response_text)?;
 
     println!(
         "Measurements count: {}/{}",
