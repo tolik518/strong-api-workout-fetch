@@ -1,6 +1,5 @@
-use crate::json_response::{
-    CellSet, CellSetGroup, CellSetGroupLinks, Log, Measurement, MeasurementsResponse,
-};
+use crate::models::measurement::{Measurement, MeasurementsResponse};
+use crate::models::workout::{CellSet, CellSetGroup, CellSetGroupLinks, Log};
 use std::collections::HashMap;
 
 #[derive(Debug)]
@@ -193,7 +192,8 @@ impl DataTransformer {
 
 #[cfg(test)]
 mod test {
-    use crate::json_response::{CellSetGroupLinks, Link};
+    use crate::models::common::Link;
+    use crate::models::workout::CellSetGroupLinks;
     use super::*;
 
     #[test]

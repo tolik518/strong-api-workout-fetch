@@ -6,7 +6,7 @@ use std::env;
 use std::fs;
 use std::path::Path;
 use strong_api_lib::data_transformer::{DataTransformer, Workout};
-use strong_api_lib::json_response::MeasurementsResponse;
+use strong_api_lib::models::measurement::MeasurementsResponse;
 use strong_api_lib::strong_api::{Includes, StrongApi};
 
 #[tokio::main]

@@ -1,3 +1,3 @@
 pub mod data_transformer;
-pub mod json_response;
+pub mod models;
 pub mod strong_api;

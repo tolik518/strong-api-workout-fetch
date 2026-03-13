@@ -1,5 +1,7 @@
-use crate::json_response::UserResponse;
-use crate::json_response::{ApiErrorResponse, LoginResponse, MeasurementsResponse};
+use crate::models::auth::LoginResponse;
+use crate::models::error::ApiErrorResponse;
+use crate::models::measurement::MeasurementsResponse;
+use crate::models::workout::UserResponse;
 use reqwest::{
     Client, Url,
     header::{HeaderMap, HeaderName, HeaderValue},
