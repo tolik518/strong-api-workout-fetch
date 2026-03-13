@@ -117,11 +117,11 @@ impl DataTransformer {
             return None;
         }
 
-        let workout_id = Self::get_workout_id_from_link(&cell_set_group.links);
+        let measurement_id = Self::get_measurement_id_from_link(&cell_set_group.links);
 
-        // Get workout name from measurements if available
+        // Get exercise name from measurements if available
         let name = lookup
-            .get(&workout_id)
+            .get(&measurement_id)
             .map(|measurement| measurement.name.to_string())
             .unwrap_or_default();
 
@@ -179,7 +179,7 @@ impl DataTransformer {
         )
     }
 
-    fn get_workout_id_from_link(links: &CellSetGroupLinks) -> String {
+    fn get_measurement_id_from_link(links: &CellSetGroupLinks) -> String {
         let url = match &links.measurement {
             Some(link) => link.href.clone(),
             None => return String::new(),
@@ -197,7 +197,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn test_can_get_workout_id_from_link() {
+    fn test_can_get_measurement_id_from_link() {
         let links = CellSetGroupLinks {
             measurement: Some(
                 Link {
@@ -208,19 +208,19 @@ mod test {
 
         assert_eq!(
             "a3f1d57d-da0e-466d-a691-c03695d39418".to_string(),
-            DataTransformer::get_workout_id_from_link(&links)
+            DataTransformer::get_measurement_id_from_link(&links)
         );
     }
 
     #[test]
-    fn test_can_get_workout_id_from_link_on_empty() {
+    fn test_can_get_measurement_id_from_link_on_empty() {
         let links = CellSetGroupLinks {
             measurement: None,
         };
 
         assert_eq!(
             "".to_string(),
-            DataTransformer::get_workout_id_from_link(&links)
+            DataTransformer::get_measurement_id_from_link(&links)
         );
     }
 }
