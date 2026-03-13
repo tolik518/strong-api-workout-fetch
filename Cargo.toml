@@ -4,3 +4,7 @@ members = [
     "strong-api-lib",
     "strong-api-fetch"
 ]
+
+[profile.ci]
+inherits = "dev"
+opt-level = 1

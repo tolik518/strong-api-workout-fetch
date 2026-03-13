@@ -1,0 +1,114 @@
+name: Build and Test
+
+on: [pull_request]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  format:
+    name: Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-check-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-check-
+      - name: Run Format
+        run: cargo fmt --all -- --check
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-test-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-test-
+      - name: Test
+        run: cargo test --profile ci
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-clippy-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-clippy-
+      - name: Run Clippy
+        run: cargo clippy --all-targets --all-features --profile ci
+
+  semver:
+    name: Semver Check (strong-api-lib)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          path: .old
+      - name: Check semver
+        uses: obi1kenobi/cargo-semver-checks-action@v2
+        with:
+          manifest-path: strong-api-lib/Cargo.toml
+          baseline-root: .old
+
+  bumped_version:
+    name: Bumped Version Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Ensure version bump in Cargo.toml (if applicable)
+        run: |
+          BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+          git fetch origin "$BASE_BRANCH"
+          for DIR in "strong-api-lib" "strong-api-fetch"
+          do
+            echo "Checking $DIR"
+            CHANGED_FILES=$(git diff --name-only origin/"$BASE_BRANCH"...HEAD -- "$DIR")
+            echo "Changed files:"
+            echo "$CHANGED_FILES"
+
+            NON_CONFIG_FILES=$(echo "$CHANGED_FILES" | grep -vE '\.(yml|yaml|md)$' || true)
+
+            if [ -z "$NON_CONFIG_FILES" ]; then
+              echo "Only YAML, Markdown, or similar files changed. Skipping version bump check."
+              continue
+            fi
+
+            BASE_VERSION=$(git show origin/"$BASE_BRANCH":"$DIR"/Cargo.toml | grep '^version' | head -n 1 | cut -d '"' -f2)
+            PR_VERSION=$(grep '^version' "$DIR"/Cargo.toml | head -n 1 | cut -d '"' -f2)
+            echo "Base version: $BASE_VERSION"
+            echo "PR version: $PR_VERSION"
+
+            if [ "$BASE_VERSION" = "$PR_VERSION" ]; then
+              echo "Error: version not bumped in $DIR! Please update the version in Cargo.toml."
+              exit 1
+            else
+              echo "Version bump detected in $DIR."
+            fi
+          done
