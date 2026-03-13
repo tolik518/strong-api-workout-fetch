@@ -29,10 +29,11 @@ You can find the Grafana JSON for the [heatmap](./examples/grafana/heatmap.json)
     STRONG_USER=your_strong_user
     STRONG_PASS=your_strong_pass
 
-    CLICKHOUSE_HOST=clickhouse
+    CLICKHOUSE_URL=http://clickhouse-server:8123
     CLICKHOUSE_USER=default
     CLICKHOUSE_PASS=
-    CLICKHOUSE_TABLE=strong
+    CLICKHOUSE_DATABASE=workouts
+    CLICKHOUSE_TABLE=workout_sets
     ```
 3. Run with `cargo run`
 
