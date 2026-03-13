@@ -4,7 +4,7 @@ COPY . .
 RUN cd strong-api-fetch && RUSTFLAGS="-C debuginfo=2" cargo install --path . --debug
 
 FROM debian:bookworm-slim
-ARG VERSION=0.1.0
+ARG VERSION=0.2.1
 LABEL version="${VERSION}"
 LABEL org.opencontainers.image.version="${VERSION}"
 RUN apt-get update && apt-get install -y \
