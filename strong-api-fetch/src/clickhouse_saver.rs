@@ -73,7 +73,7 @@ impl ClickHouseSaver {
                 )?;
 
                 let end_dt = OffsetDateTime::parse(
-                    &workout.start_date.clone().unwrap_or_default(),
+                    &workout.end_date.clone().unwrap_or_default(),
                     &Rfc3339,
                 )?;
 
