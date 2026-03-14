@@ -65,17 +65,19 @@ impl ClickHouseSaver {
         let mut insert = self.client.insert(&self.table_name)?;
 
         for exercise in &workout.exercises {
-            let exercise_nr = workout.exercises.iter().position(|x| x.id == exercise.id).unwrap() as u32;
+            let exercise_nr = workout
+                .exercises
+                .iter()
+                .position(|x| x.id == exercise.id)
+                .unwrap() as u32;
             for set in &exercise.sets {
                 let start_dt = OffsetDateTime::parse(
                     &workout.start_date.clone().unwrap_or_default(),
                     &Rfc3339,
                 )?;
 
-                let end_dt = OffsetDateTime::parse(
-                    &workout.end_date.clone().unwrap_or_default(),
-                    &Rfc3339,
-                )?;
+                let end_dt =
+                    OffsetDateTime::parse(&workout.end_date.clone().unwrap_or_default(), &Rfc3339)?;
 
                 let set_nr = exercise.sets.iter().position(|x| x.id == set.id).unwrap() as u32;
 

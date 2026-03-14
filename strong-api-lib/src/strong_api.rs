@@ -90,7 +90,10 @@ impl StrongApi {
         username: &str,
         password: &str,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        let url = self.url.join("auth/login")?;
+        let url = self
+            .url
+            .join("auth/login")
+            .expect("joining auth/login has failed, check the base URL");
         let body = json!({
             "usernameOrEmail": username,
             "password": password
@@ -103,7 +106,7 @@ impl StrongApi {
             .json(&body)
             .send()
             .await?;
-        let response_text = response.text().await?;
+        let response_text = response.text().await.expect("failed to read response body");
 
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
 
@@ -116,7 +119,10 @@ impl StrongApi {
 
     /// Refreshes the access token using tokens obtained during login.
     pub async fn refresh(&mut self) -> Result<(), Box<dyn std::error::Error>> {
-        let url = self.url.join("auth/login/refresh")?;
+        let url = self
+            .url
+            .join("auth/login/refresh")
+            .expect("joining auth/login/refresh has failed, check the base URL");
         let body = json!({
             "accessToken": self.access_token,
             "refreshToken": self.refresh_token
@@ -133,7 +139,7 @@ impl StrongApi {
             .send()
             .await?;
 
-        let response_text = response.text().await?;
+        let response_text = response.text().await.expect("failed to read response body");
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
 
         self.access_token = parsed.access_token;
@@ -149,7 +155,10 @@ impl StrongApi {
         access_token: String,
         refresh_token: String,
     ) -> Result<(), Box<dyn std::error::Error>> {
-        let url = self.url.join("auth/login/refresh")?;
+        let url = self
+            .url
+            .join("auth/login/refresh")
+            .expect("joining auth/login/refresh has failed, check the base URL");
         let body = json!({
             "accessToken": access_token.clone(),
             "refreshToken": refresh_token,
@@ -163,7 +172,7 @@ impl StrongApi {
             .json(&body)
             .send()
             .await?;
-        let response_text = response.text().await?;
+        let response_text = response.text().await.expect("failed to read response body");
         let parsed: LoginResponse = serde_json::from_str(&response_text)?;
 
         self.access_token = parsed.access_token;
@@ -186,7 +195,10 @@ impl StrongApi {
             .user_id
             .as_ref()
             .ok_or("Missing user id. Use `login` before calling `get_user`")?;
-        let mut url = self.url.join(&format!("api/users/{user_id}"))?;
+        let mut url = self
+            .url
+            .join(&format!("api/users/{user_id}"))
+            .expect("joining api/users/{user_id} has failed, check the base URL");
 
         {
             // Use query_pairs_mut to build the query string.
@@ -208,7 +220,7 @@ impl StrongApi {
 
         // Capture the status before consuming the response.
         let status = response.status();
-        let response_text = response.text().await?;
+        let response_text = response.text().await.expect("failed to read response body");
 
         if !status.is_success() {
             let api_error: ApiErrorResponse = serde_json::from_str(&response_text)?;
@@ -227,15 +239,23 @@ impl StrongApi {
         &self,
         page: i8,
     ) -> Result<MeasurementsResponse, Box<dyn std::error::Error>> {
-        let mut url = self.url.join("api/measurements")?;
+        let mut url = self
+            .url
+            .join("api/measurements")
+            .expect("joining api/measurements has failed, check the base URL");
 
         {
             let mut query_pairs = url.query_pairs_mut();
             query_pairs.append_pair("page", &page.to_string());
         }
 
-        let response = self.client.get(url).headers(Self::default_headers()).send().await?;
-        let response_text = response.text().await?;
+        let response = self
+            .client
+            .get(url)
+            .headers(Self::default_headers())
+            .send()
+            .await?;
+        let response_text = response.text().await.expect("failed to read response body");
 
         let response: MeasurementsResponse = serde_json::from_str(&response_text)?;
 
@@ -244,7 +264,10 @@ impl StrongApi {
 
     pub async fn get_logs_raw(&self) -> Result<String, Box<dyn std::error::Error>> {
         let user_id = self.user_id.as_ref().ok_or("Missing user id")?;
-        let url = self.url.join(&format!("api/logs/{user_id}"))?;
+        let url = self
+            .url
+            .join(&format!("api/logs/{user_id}"))
+            .expect("joining api/logs/{user_id} has failed, check the base URL");
         let response = self
             .client
             .get(url)
@@ -252,7 +275,7 @@ impl StrongApi {
             .headers(self.headers.clone())
             .send()
             .await?;
-        let response_text = response.text().await?;
+        let response_text = response.text().await.expect("failed to read response body");
 
         Ok(response_text)
     }

@@ -169,14 +169,12 @@ impl DataTransformer {
             .and_then(|cell| cell.value.as_ref())
             .and_then(|s| s.parse::<f32>().ok());
 
-        Some(
-            Set {
-                id: cell_set.id.clone(),
-                weight,
-                reps,
-                rpe,
-            }
-        )
+        Some(Set {
+            id: cell_set.id.clone(),
+            weight,
+            reps,
+            rpe,
+        })
     }
 
     fn get_measurement_id_from_link(links: &CellSetGroupLinks) -> String {
@@ -187,40 +185,5 @@ impl DataTransformer {
 
         let parts: Vec<&str> = url.split("/").collect();
         parts[parts.len() - 1].to_string()
-    }
-}
-
-#[cfg(test)]
-mod test {
-    use crate::models::common::Link;
-    use crate::models::workout::CellSetGroupLinks;
-    use super::*;
-
-    #[test]
-    fn test_can_get_measurement_id_from_link() {
-        let links = CellSetGroupLinks {
-            measurement: Some(
-                Link {
-                    href: "/api/users/0f9fc87d-0e60-46c6-b98d-9b1b69423218/measurements/a3f1d57d-da0e-466d-a691-c03695d39418".to_string()
-                }
-            ),
-        };
-
-        assert_eq!(
-            "a3f1d57d-da0e-466d-a691-c03695d39418".to_string(),
-            DataTransformer::get_measurement_id_from_link(&links)
-        );
-    }
-
-    #[test]
-    fn test_can_get_measurement_id_from_link_on_empty() {
-        let links = CellSetGroupLinks {
-            measurement: None,
-        };
-
-        assert_eq!(
-            "".to_string(),
-            DataTransformer::get_measurement_id_from_link(&links)
-        );
     }
 }

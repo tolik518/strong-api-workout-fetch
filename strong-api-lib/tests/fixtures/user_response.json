@@ -1,0 +1,2094 @@
+{
+    "_links": {
+        "self": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "folders": {
+            "href": "/api/folders/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "folder": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/folders/{id}",
+            "templated": true
+        },
+        "measurements": {
+            "href": "/api/measurements/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "measurement": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/{id}",
+            "templated": true
+        },
+        "measuredValues": {
+            "href": "/api/measuredvalues/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "measuredValue": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measuredvalues/{id}",
+            "templated": true
+        },
+        "templates": {
+            "href": "/api/templates/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "template": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/templates/{id}",
+            "templated": true
+        },
+        "metrics": {
+            "href": "/api/metrics/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "metric": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/metrics/{id}",
+            "templated": true
+        },
+        "metricCaches": {
+            "href": "/api/metriccaches/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "metricCache": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/metriccaches/{id}",
+            "templated": true
+        },
+        "logs": {
+            "href": "/api/logs/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "log": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/logs/{id}",
+            "templated": true
+        },
+        "tags": {
+            "href": "/api/tags/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "tag": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/tags/{id}",
+            "templated": true
+        },
+        "widgets": {
+            "href": "/api/widgets/0f518518-5180-4518-b518-51b51851b518"
+        },
+        "widget": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/widgets/{id}",
+            "templated": true
+        },
+        "next": {
+            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518?include=log&include=measurement&continuation=ARXq6MgWOgQA-JlAPuM5CA&limit=5"
+        }
+    },
+    "_embedded": {
+        "measurement": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/6de1b274-f023-49f2-94ec-add08373b7e4"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "tag": [
+                        {
+                            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/tags/cardio"
+                        }
+                    ]
+                },
+                "id": "6de1b274-f023-49f2-94ec-add08373b7e4",
+                "created": "2016-02-19T05:42:36.756Z",
+                "lastChanged": "2017-12-06T13:45:30.693Z",
+                "name": {
+                    "en": "Yoga"
+                },
+                "media": [],
+                "cellTypeConfigs": [
+                    {
+                        "cellType": "DURATION",
+                        "mandatory": true
+                    }
+                ],
+                "isGlobal": true,
+                "measurementType": "EXERCISE"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/0ea248ec-76d2-47b1-aba5-c35160a3236f"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "tag": [
+                        {
+                            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/tags/cardio"
+                        }
+                    ]
+                },
+                "id": "0ea248ec-76d2-47b1-aba5-c35160a3236f",
+                "created": "2016-02-19T05:42:35.179Z",
+                "lastChanged": "2017-12-06T13:45:43.206Z",
+                "name": {
+                    "en": "Climbing"
+                },
+                "media": [],
+                "cellTypeConfigs": [
+                    {
+                        "cellType": "DURATION",
+                        "mandatory": true
+                    }
+                ],
+                "isGlobal": true,
+                "measurementType": "EXERCISE"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/05aa6d82-6388-4c3d-87a5-8d8edc1b3431"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "tag": [
+                        {
+                            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/tags/cardio"
+                        }
+                    ]
+                },
+                "id": "05aa6d82-6388-4c3d-87a5-8d8edc1b3431",
+                "created": "2016-02-19T05:42:35.172Z",
+                "lastChanged": "2017-12-06T13:45:56.587Z",
+                "name": {
+                    "en": "Aerobics"
+                },
+                "media": [],
+                "cellTypeConfigs": [
+                    {
+                        "cellType": "DURATION",
+                        "mandatory": true
+                    }
+                ],
+                "isGlobal": true,
+                "measurementType": "EXERCISE"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/a8225200-79fb-4131-8ea2-c4df95f56c77"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "tag": [
+                        {
+                            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/tags/cardio"
+                        }
+                    ]
+                },
+                "id": "a8225200-79fb-4131-8ea2-c4df95f56c77",
+                "created": "2016-02-19T05:42:35.16Z",
+                "lastChanged": "2017-12-06T13:46:14.551Z",
+                "name": {
+                    "en": "Swimming"
+                },
+                "media": [],
+                "cellTypeConfigs": [
+                    {
+                        "cellType": "DISTANCE"
+                    },
+                    {
+                        "cellType": "DURATION"
+                    }
+                ],
+                "isGlobal": true,
+                "measurementType": "EXERCISE"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/95aef7e7-e232-4442-851e-2231e7b54317"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "tag": [
+                        {
+                            "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/tags/cardio"
+                        }
+                    ]
+                },
+                "id": "95aef7e7-e232-4442-851e-2231e7b54317",
+                "created": "2016-02-19T05:42:35.155Z",
+                "lastChanged": "2017-12-06T13:46:17.704Z",
+                "name": {
+                    "en": "Skating"
+                },
+                "media": [],
+                "cellTypeConfigs": [
+                    {
+                        "cellType": "DISTANCE"
+                    },
+                    {
+                        "cellType": "DURATION"
+                    }
+                ],
+                "isGlobal": true,
+                "measurementType": "EXERCISE"
+            }
+        ],
+        "log": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/logs/5f91749b-34b0-4c6d-be09-f10bee3b0fd6"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    }
+                },
+                "_embedded": {
+                    "cellSetGroup": [
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/a8121bda-a232-4da2-be80-85bbe05c53d7"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "7fb02df9-d06d-46a2-aa68-1ed000bd1f5e",
+                            "cellSets": [
+                                {
+                                    "id": "b237f058-3838-45a5-8147-347874d57c1d",
+                                    "cells": [
+                                        {
+                                            "id": "90ebc3c3-2dc0-4860-bf45-93ac075d430d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "60"
+                                        },
+                                        {
+                                            "id": "a2cdc0a3-ef17-4f98-b656-60c0bc2d20e1",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "a2daa8b2-176f-4d21-8b5a-6d0a61d7ddf5",
+                                    "cells": [
+                                        {
+                                            "id": "866d86e9-a9ae-450b-bae2-b6d760c1aa40",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "70"
+                                        },
+                                        {
+                                            "id": "2459cb9c-4d2b-4fff-b175-c46708691ea8",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "89567e2f-263a-4ac3-a64f-1c96de51788e",
+                                    "cells": [
+                                        {
+                                            "id": "799d311b-b08d-4c5d-a677-b882ffe52a44",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "70"
+                                        },
+                                        {
+                                            "id": "f1a0766e-b6b6-4f4d-82c9-12e374d5345e",
+                                            "cellType": "REPS",
+                                            "value": "13"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "0886cc4b-79d7-4cbe-bdb7-72d99e59b66b",
+                                    "cells": [
+                                        {
+                                            "id": "1a63ac74-81eb-4dbf-8e65-8034a5a58c75",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "80"
+                                        },
+                                        {
+                                            "id": "c789d9b7-beec-4abd-9034-0c25bcb633a5",
+                                            "cellType": "REPS",
+                                            "value": "9"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/534954cb-6720-45c4-bf63-a0766142ec6c"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "797e7a4f-9e65-4114-a17d-7977bd0d22e4",
+                            "cellSets": [
+                                {
+                                    "id": "7f579148-e96a-457c-bd2e-1ce90d67b255",
+                                    "cells": [
+                                        {
+                                            "id": "73c1879f-c5e7-47c5-8f21-e1bd04034973",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "b82a6a51-9b8b-489f-b1c6-34c62ab35d93",
+                                            "cellType": "REPS",
+                                            "value": "13"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "1d5a4ae5-8622-46ed-9579-0364ad8fcad8",
+                                    "cells": [
+                                        {
+                                            "id": "cb4a6d2a-318a-4607-812f-476e605a4f13",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "79f2a2cd-45ed-49c4-8f8b-f70a805972d7",
+                                            "cellType": "REPS",
+                                            "value": "13"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "5ef09f65-d8c9-479b-b7ee-b20098cfd5e4",
+                                    "cells": [
+                                        {
+                                            "id": "29368a6b-46f1-4941-a40d-44df4d09df31",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "49365386-1cf3-4b25-ade4-c8def1a3fc32",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/8dc8a29b-674b-43c9-bf6e-46b95f3414be"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "4c55828a-ac23-4c24-93a1-3b7c22a80c2e",
+                            "cellSets": [
+                                {
+                                    "id": "9a36060b-7991-4e7f-8a96-b4c6aed1eab4",
+                                    "cells": [
+                                        {
+                                            "id": "13efe0e1-959f-42f6-87de-eac1762f3b8e",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "a80d0da8-b579-4ff7-856f-ea7ed2e082c3",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "f2a6ab19-b84d-45c8-bdf5-5c0e593ae71a",
+                                    "cells": [
+                                        {
+                                            "id": "8be5c089-4fdc-42c6-8dce-5d16cf4bc379",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "f961534b-c287-4064-83b2-0f201ae671aa",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "96d2d90a-056a-4c44-b5a3-dd3fdb43d6bc",
+                                    "cells": [
+                                        {
+                                            "id": "d2936c98-b2ba-475f-8f2d-95141bcd4b82",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "2a24d0fc-3389-48af-a2f6-7efe60836f1c",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/b92aa3dd-98e1-4e99-a229-434be54c1ae5"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "e08e0378-fa66-4342-b0eb-21a3666f379b",
+                            "cellSets": [
+                                {
+                                    "id": "a92606f2-0cde-4c9b-9dd9-e83f28a2c3f5",
+                                    "cells": [
+                                        {
+                                            "id": "1b9005e1-303e-4c87-b927-e03ef8fe0780",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "a074422b-30b9-4168-8f13-0b04cdd8cc0a",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "96ed7987-50c8-4234-8213-1a426cc4523e",
+                                    "cells": [
+                                        {
+                                            "id": "0479edd2-4712-4dcf-8abd-175ffa76463d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "b717e10d-3257-40b7-8312-7df08379ab5b",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "3e45f8b3-5ac4-4d98-8ae5-bd3031d06345",
+                                    "cells": [
+                                        {
+                                            "id": "f56c0e01-3a11-43fc-8612-ad473061d97d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "fa65fff9-d5c8-4cfb-aa7e-a36d444259d4",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/4a304d9a-9a7a-440f-bb9a-9fd5cde6b590"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "6139bc82-d1c6-4a10-a32f-96baab11ecef",
+                            "cellSets": [
+                                {
+                                    "id": "b57ab46a-6449-4906-bf59-bd85a9234e50",
+                                    "cells": [
+                                        {
+                                            "id": "2922b18a-5ab3-436a-8fc3-184157e1f00d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "777301eb-5493-4c3f-8a22-6cfafe72495d",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "035c373e-16c2-41cb-9725-d4d2d63da497",
+                                    "cells": [
+                                        {
+                                            "id": "bb47c448-a953-4153-a444-a2e18b9efa05",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "25"
+                                        },
+                                        {
+                                            "id": "36510801-fc2e-43fd-a4fb-3a1d801997ad",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "5b657142-08d5-411a-ab8c-7f1ab8ac5cf1",
+                                    "cells": [
+                                        {
+                                            "id": "802d7ba5-3f73-47d0-b52a-fcb4a0757373",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "25"
+                                        },
+                                        {
+                                            "id": "8a29b6ab-fabd-4d48-984b-da5623129812",
+                                            "cellType": "REPS",
+                                            "value": "7"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "timezoneId": "Europe/Berlin",
+                "id": "5f91749b-34b0-4c6d-be09-f10bee3b0fd6",
+                "created": "2024-11-20T17:01:58.274Z",
+                "lastChanged": "2024-11-20T17:02:22.772Z",
+                "name": {
+                    "en": "Bizeps/R\u00fccken"
+                },
+                "access": "PRIVATE",
+                "startDate": "2024-11-20T16:07:54.566Z",
+                "endDate": "2024-11-20T17:01:58.254Z",
+                "logType": "WORKOUT"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/logs/b157b5ab-48fa-45cc-998e-00bb4599b563"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    }
+                },
+                "_embedded": {
+                    "cellSetGroup": [
+                        {
+                            "_links": {},
+                            "_embedded": {},
+                            "id": "8d79c437-c702-4704-81af-4bd17980e994",
+                            "cellSets": [
+                                {
+                                    "id": "994eaff8-0aa8-42ae-9355-99f4f8de929b",
+                                    "cells": [
+                                        {
+                                            "id": "5279b584-bf5b-4f1b-82bf-b8d2e874ae4d",
+                                            "cellType": "NOTE",
+                                            "value": "Just a note"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "3ad980d1-6463-4be7-8657-08892ed8938f",
+                            "cellSets": [
+                                {
+                                    "id": "acec6092-4236-47fc-8974-54fccc57d582",
+                                    "cells": [
+                                        {
+                                            "id": "d536d947-6021-46d4-8144-d885efeb1b8d",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "8c038916-e0ed-49e7-873c-eda96edf3a93",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "c91976a1-4223-4917-8bbe-a471f38d1411",
+                                    "cells": [
+                                        {
+                                            "id": "259fb3d9-ee0e-4078-b2a2-9019c14d8c0e",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "3dce4644-4009-446a-9f3a-fcd57d627e19",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "efdd5ff4-33c0-4e8d-b198-08c856a183a8",
+                                    "cells": [
+                                        {
+                                            "id": "c4f07244-3877-400c-8679-6167f7b9ae49",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "e054e2aa-5bf7-4232-927e-012877722f3e",
+                                            "cellType": "REPS",
+                                            "value": "9"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "eb229c8f-2b20-4fdc-b223-5f322db19969",
+                                    "cells": [
+                                        {
+                                            "id": "b5d274a6-ceea-4e79-92e9-9b4a3533c5a9",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "78c6eb96-c81b-425f-b3b0-5a6102555d49",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/6ae27da7-92b9-4af9-b2a9-e0afd827c188"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "3f82b56d-bb35-4336-a568-d16a8e86f15d",
+                            "cellSets": [
+                                {
+                                    "id": "5803dc38-3870-4f80-ab7d-2657fdc93b62",
+                                    "cells": [
+                                        {
+                                            "id": "9b8d5d7d-01e5-4b3b-8fd6-6e1a343c27ae",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "50"
+                                        },
+                                        {
+                                            "id": "c75a4638-dfdd-4881-a0b6-32ad0aca214a",
+                                            "cellType": "REPS",
+                                            "value": "3"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "84dfc421-c877-4866-b686-5b81da9c9d06",
+                                    "cells": [
+                                        {
+                                            "id": "35fc39ab-be07-4a47-a7be-d6351d02837d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "a503c6dd-5cc4-463a-8362-71227bbd3188",
+                                            "cellType": "REPS",
+                                            "value": "14"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "1eec407e-6597-4601-8805-06f605bea837",
+                                    "cells": [
+                                        {
+                                            "id": "1e3e99ea-f86e-46d4-86cb-865af2ac9037",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "43689c77-493a-42dd-994b-c4f8d3574d50",
+                                            "cellType": "REPS",
+                                            "value": "7"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "0800ae2e-c48a-4fb4-ab42-bb8bb561908d",
+                                    "cells": [
+                                        {
+                                            "id": "676d2bd8-b00d-4245-899d-03d50d44b83b",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "09ab3eee-8552-4d6c-ae03-c6f5ba09354e",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/a60fd1af-31d7-4235-92cd-57f76d1c39e9"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "b26a47f3-d669-442b-a1ec-8c1c50cbb924",
+                            "cellSets": [
+                                {
+                                    "id": "e8b9474e-e7e3-4e24-b1bc-dd1b7dbc1fd8",
+                                    "cells": [
+                                        {
+                                            "id": "a8fc112c-b107-49e3-bcde-b014a72d2639",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "7165048d-faf3-47ca-9651-a04255a5d5ae",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "3489da77-c4a3-48ca-9451-3a651c498de2",
+                                    "cells": [
+                                        {
+                                            "id": "342aa1b1-d46c-4715-9911-144c1dab0159",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "0c0174b8-6c43-47e1-a342-3cc783d313b4",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "6e86d0c4-0724-4378-8f83-1718b5038c4c",
+                                    "cells": [
+                                        {
+                                            "id": "c70fde04-9841-4734-90b4-72e55675e7b9",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "5e5df9ce-5ca5-4fb9-969b-9ac9052d3e3e",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/737d7664-5231-44f9-a112-a4c087f67675"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "17c722c2-cda9-4fcb-bfb5-b4402f3f7f19",
+                            "cellSets": [
+                                {
+                                    "id": "a203df22-451e-4913-951e-a5363a6de8e5",
+                                    "cells": [
+                                        {
+                                            "id": "9ff21fa6-3858-4e6b-81fb-eb098b336cf9",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "14"
+                                        },
+                                        {
+                                            "id": "4d4ba8bd-d3b2-4a06-aaa0-62b50673c0ef",
+                                            "cellType": "REPS",
+                                            "value": "6"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "a91c9120-8781-478e-a174-babea6b91666",
+                                    "cells": [
+                                        {
+                                            "id": "a78f08ae-4b36-44f1-9f31-ece0d79ad39d",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "14"
+                                        },
+                                        {
+                                            "id": "53a52a51-2999-4c11-8152-ce9f7b8c74a0",
+                                            "cellType": "REPS",
+                                            "value": "6"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/91efd24a-9acc-40dd-8f7f-16a1ab175f33"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "a7f04fe3-0d4f-4f96-bd90-a1df38de5e09",
+                            "cellSets": [
+                                {
+                                    "id": "b24da8b2-b165-411c-81df-531079e61c66",
+                                    "cells": [
+                                        {
+                                            "id": "8b4b4956-4e51-4aed-908f-7ab4577c2fb3",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "e3442043-476f-491c-a769-ab1af975375e",
+                                            "cellType": "REPS",
+                                            "value": "15"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "217fc6ac-c39e-4a25-83c6-90eb99b1725e",
+                                    "cells": [
+                                        {
+                                            "id": "4a5636fa-2cdf-4068-bfaf-c6d2ab7bfaf1",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "c55ffa5a-be89-44e5-9551-3e3efad06319",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "3a88e626-2da4-4b79-9f18-7797faea1e5f",
+                                    "cells": [
+                                        {
+                                            "id": "136e4d48-76b7-4346-aa8a-82051b0d01d0",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "4a059d2e-b750-4e77-a2f1-1c267d6a2e00",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "94d0fae4-40eb-476c-8603-34a018f00ecd",
+                                    "cells": [
+                                        {
+                                            "id": "cc7f05e2-0ca7-4aba-80f7-488049b814cb",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "b2851c89-d250-4fdb-a111-3d474be0227a",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "timezoneId": "Europe/Berlin",
+                "id": "b157b5ab-48fa-45cc-998e-00bb4599b563",
+                "created": "2024-12-02T17:34:29.575Z",
+                "lastChanged": "2024-12-02T20:54:41.558Z",
+                "name": {
+                    "en": "Brust/Trizeps"
+                },
+                "access": "PRIVATE",
+                "startDate": "2024-12-02T16:26:27.629Z",
+                "endDate": "2024-12-02T17:34:29.631Z",
+                "logType": "WORKOUT"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/logs/4bb4081f-a729-4016-96c1-b837ae05100f"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "template": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/templates/328042b7-335e-4d61-8f3f-eaef8597d869"
+                    }
+                },
+                "_embedded": {
+                    "cellSetGroup": [
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/a8121bda-a232-4da2-be80-85bbe05c53d7"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "6a0929b8-92e4-4c90-a62f-5b381fb2e9e0",
+                            "cellSets": [
+                                {
+                                    "id": "0257e08c-19b8-4e93-8554-293dc363c087",
+                                    "cells": [
+                                        {
+                                            "id": "1ba5deda-efb7-4b25-af7a-b1dd41eaf2c3",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "60"
+                                        },
+                                        {
+                                            "id": "ee38ccbb-bbbb-4d4b-adc9-bf33296b9807",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "cf5f0131-94bf-4a9c-ace3-3bb8972f4adb",
+                                    "cells": [
+                                        {
+                                            "id": "69071b3e-d5bf-4f60-99ab-0a369e626401",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "70"
+                                        },
+                                        {
+                                            "id": "36c1ea1c-8d84-489a-9a1e-6255a57cdbe2",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "3f7839ea-5fff-42bb-8444-74dfc4f51de5",
+                                    "cells": [
+                                        {
+                                            "id": "7ff3575a-4652-400b-8667-e0d46fe5c957",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "70"
+                                        },
+                                        {
+                                            "id": "a503c8d4-1258-4fe8-bb08-e3ed48572346",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/534954cb-6720-45c4-bf63-a0766142ec6c"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "e70476e1-98cc-4e11-a14e-8844c7f63daf",
+                            "cellSets": [
+                                {
+                                    "id": "8700aad5-51cb-4a8c-abb6-2973aba37564",
+                                    "cells": [
+                                        {
+                                            "id": "ce485bcb-e5ca-457e-b423-90294f25a44e",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "f7537b14-bfc1-4dfe-832f-177946b0fca5",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "1753dbe6-17c0-4920-8e57-2d6b4896ceda",
+                                    "cells": [
+                                        {
+                                            "id": "19232167-6403-4698-a02f-a8b802f5a505",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "08855be9-f34e-466f-b650-af05f5515e3a",
+                                            "cellType": "REPS",
+                                            "value": "13"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "5bbcbb8e-3d79-4083-be39-7b21da17898e",
+                                    "cells": [
+                                        {
+                                            "id": "77648148-c69c-4757-9d36-0af7cd7de881",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "8b6632e5-f50e-4e74-be4b-188696cb81da",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "4cf7eab9-061d-4cf5-9be0-3fbb3e4ce237",
+                                    "cells": [
+                                        {
+                                            "id": "17df05c6-72e8-477b-83c1-9782dfa88de0",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "206f4e2f-70da-4fee-bf73-c0e91affd004",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/8dc8a29b-674b-43c9-bf6e-46b95f3414be"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "84aa0a48-17ce-4366-93d6-54571af8d6f9",
+                            "cellSets": [
+                                {
+                                    "id": "6c8b3e7c-23f6-480a-be29-5db98593314e",
+                                    "cells": [
+                                        {
+                                            "id": "5b949409-f265-48f6-a711-6ef9fb2e9522",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "899286bd-8fb9-467c-b89c-f7620f1b4092",
+                                            "cellType": "REPS",
+                                            "value": "17"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "f2f39079-f792-4cb8-b93d-f8865b3aa321",
+                                    "cells": [
+                                        {
+                                            "id": "162f88ed-0673-4e1a-b9ac-4439832ef63e",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "8783966c-54d7-42bf-898f-9168c239f898",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "557dcbd2-c2f0-4628-a1d9-2f2781a9c7d2",
+                                    "cells": [
+                                        {
+                                            "id": "3ee61e3e-2a09-4806-aec8-b97c76fbe547",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "ad370220-f3ae-475b-89b7-9128b21e52e1",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/4a304d9a-9a7a-440f-bb9a-9fd5cde6b590"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "6c91dbaa-4e4a-4a5a-b8df-462548349052",
+                            "cellSets": [
+                                {
+                                    "id": "73dfd64f-551c-427e-88dd-0c68ce14a867",
+                                    "cells": [
+                                        {
+                                            "id": "1e523a9c-844f-415b-b478-a0d7bbedff37",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "d8604549-874d-4fba-b719-09b9e673da44",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "2411035b-062c-4182-93cc-81b13c80a85e",
+                                    "cells": [
+                                        {
+                                            "id": "eebe268d-2582-4f62-b552-1c7730a32fe4",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "25"
+                                        },
+                                        {
+                                            "id": "89eba256-9767-4e52-a149-3ee4b1615a74",
+                                            "cellType": "REPS",
+                                            "value": "9"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "de56a498-3ec2-453a-9586-f577243ca76a",
+                                    "cells": [
+                                        {
+                                            "id": "4ba6fff7-27e6-48de-b2d2-d16862c22887",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "25"
+                                        },
+                                        {
+                                            "id": "1eb51a56-4ce8-4c55-81d0-e05969833fdd",
+                                            "cellType": "REPS",
+                                            "value": "5"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/4247db47-0f44-4314-851d-8ab4dce3317d"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "773b26ab-e0ec-4bed-8918-0a8b836953f1",
+                            "cellSets": [
+                                {
+                                    "id": "865b901a-4ffe-44a6-854c-f7000c57f1e1",
+                                    "cells": [
+                                        {
+                                            "id": "55efa196-71aa-496c-b99b-c1678e509bbf",
+                                            "cellType": "NOTE",
+                                            "value": "Just another note"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "93974c6f-d5dd-44d7-93e2-c9fb39aecf14",
+                                    "cells": [
+                                        {
+                                            "id": "d21ebd2e-d084-4607-88a5-4d98abde2e34",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "10"
+                                        },
+                                        {
+                                            "id": "b6b2e75e-664b-404f-988f-49774d8eafa5",
+                                            "cellType": "REPS",
+                                            "value": "6"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "e0ac17e3-d74b-477a-a62c-f5fe81fb58ea",
+                                    "cells": [
+                                        {
+                                            "id": "33880206-b0e6-4907-8c2e-600e24791567",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "10"
+                                        },
+                                        {
+                                            "id": "2668a579-818a-4f71-87fb-cd07de760dde",
+                                            "cellType": "REPS",
+                                            "value": "5"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "2bf1ec4f-fcbe-4fa7-8532-46daab17d5e6",
+                                    "cells": [
+                                        {
+                                            "id": "b97f9883-e506-4cd4-8f63-f3226657ef35",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "10"
+                                        },
+                                        {
+                                            "id": "bb9b5c82-2c21-4734-8581-d26ee0fb26d6",
+                                            "cellType": "REPS",
+                                            "value": "3"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "timezoneId": "Europe/Berlin",
+                "id": "4bb4081f-a729-4016-96c1-b837ae05100f",
+                "created": "2024-12-04T17:21:20.07Z",
+                "lastChanged": "2024-12-04T17:21:20.07Z",
+                "name": {
+                    "en": "Bizeps/R\u00fccken"
+                },
+                "access": "PRIVATE",
+                "startDate": "2024-12-04T16:23:43.965Z",
+                "endDate": "2024-12-04T17:21:20.423Z",
+                "logType": "WORKOUT"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/logs/87148467-f4ef-47e2-acb1-7723bb017696"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "template": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/templates/fdfbc66d-6d9c-4cdd-a871-fe916d6368cd"
+                    }
+                },
+                "_embedded": {
+                    "cellSetGroup": [
+                        {
+                            "_links": {},
+                            "_embedded": {},
+                            "id": "89cc66f5-5096-4936-87eb-2218e3dfce3f",
+                            "cellSets": [
+                                {
+                                    "id": "38d24d97-44ac-431b-b881-35904fffdc13",
+                                    "cells": [
+                                        {
+                                            "id": "b5581ba5-3921-40d1-9a01-2cd02a7c8c25",
+                                            "cellType": "NOTE",
+                                            "value": "Just another note with an äöü"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "9fa5af65-ee95-4c72-bd00-9358eaa11ef3",
+                            "cellSets": [
+                                {
+                                    "id": "4cddae7c-736e-4bc8-b4ee-447635b4e8a9",
+                                    "cells": [
+                                        {
+                                            "id": "5e42e9f1-ab3a-4220-ba12-ad2c9ef05f9b",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "30"
+                                        },
+                                        {
+                                            "id": "76c99bda-dd50-43b2-87a3-fc20bdaa9f53",
+                                            "cellType": "REPS",
+                                            "value": "16"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "a8d5a01e-dc1f-4c16-b304-a3c131176cc1",
+                                    "cells": [
+                                        {
+                                            "id": "0bd69451-cca0-4262-a3bd-f40302e9f433",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "27e43a94-ff52-437b-a09e-841c0154a4aa",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "cc69257b-ecf1-48a6-9f99-2ba157b63029",
+                                    "cells": [
+                                        {
+                                            "id": "e5c8ac11-853d-4415-8f1b-383ef2b17fa6",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "192ab958-337f-45a3-b294-ffd3a2c7404d",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "3600cc0c-02e5-4b3a-be8c-186f929aa83f",
+                                    "cells": [
+                                        {
+                                            "id": "05ca5b9b-7c51-46f1-9b15-a357ff96f4ca",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "0b8368cf-d4d8-491a-943d-d2b44765a92e",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/6ae27da7-92b9-4af9-b2a9-e0afd827c188"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "02ae7ea4-e5a3-4c1e-a4c8-8618dbebcdb8",
+                            "cellSets": [
+                                {
+                                    "id": "31200602-1d6c-4de7-ad50-79ebb0beb8f4",
+                                    "cells": [
+                                        {
+                                            "id": "0c8989db-a419-4592-9fcd-65d4d0d557d3",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "ead93fc0-f67f-487c-ac4b-2b3301e49f3b",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "0412c2c5-d59b-462d-beb3-9db4ec9fad4a",
+                                    "cells": [
+                                        {
+                                            "id": "141c00d7-4fcd-49e9-9a26-9d19d6be17dc",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "b1a94e03-3797-4fa0-95b0-c9824fa2e3d0",
+                                            "cellType": "REPS",
+                                            "value": "7"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "96f0e257-1704-45e0-b298-50900339bbd9",
+                                    "cells": [
+                                        {
+                                            "id": "392d8bc6-1fb4-4bdc-9ad8-f588285a196a",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "b2e04ec0-df73-4e9f-b697-705589091b61",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/a60fd1af-31d7-4235-92cd-57f76d1c39e9"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "b3221662-e5f2-4389-8870-4d68b013d538",
+                            "cellSets": [
+                                {
+                                    "id": "822d28e6-285a-431f-ab59-9d98b50410db",
+                                    "cells": [
+                                        {
+                                            "id": "f562bdbf-af2f-451e-9299-edebaac73e40",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "4bf07578-75cc-4391-8566-7ffe2910559c",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "96aa5450-08b9-48f8-99f4-6f11b3448b41",
+                                    "cells": [
+                                        {
+                                            "id": "fed6d9e7-f7d8-493c-8f6f-d75a83ad34c2",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "215228ad-b0ab-4600-a5db-7ea5f7b24bd3",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "c827b58e-7139-418c-af2c-64d2273c933f",
+                                    "cells": [
+                                        {
+                                            "id": "4c00fb12-bf15-4f92-85e5-19980a85b49a",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "9bd8bbb7-c417-4841-bff0-fe615a14609f",
+                                            "cellType": "REPS",
+                                            "value": "9"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/737d7664-5231-44f9-a112-a4c087f67675"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "fa237632-6633-4613-ab1c-c8583a2a4ca1",
+                            "cellSets": [
+                                {
+                                    "id": "0167b71b-5b00-4d54-8a6a-6ca4e761a6f3",
+                                    "cells": [
+                                        {
+                                            "id": "cac35535-1702-4957-8175-cef5e1ccc43e",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "14"
+                                        },
+                                        {
+                                            "id": "54b9aa98-ac66-4d32-837e-5123140a3f51",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "b3e8ec7f-3559-41be-a976-ca95f741406c",
+                                    "cells": [
+                                        {
+                                            "id": "ede29848-ef2a-4517-8aad-acbcc623567b",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "14"
+                                        },
+                                        {
+                                            "id": "1caf3739-2d91-467a-b591-72c6799fcac8",
+                                            "cellType": "REPS",
+                                            "value": "8"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "d181f550-3e7e-4991-9e8d-55c8232e0b34",
+                                    "cells": [
+                                        {
+                                            "id": "d31d09ad-92de-43cd-8ab0-92c5ac951b2a",
+                                            "cellType": "DUMBBELL_WEIGHT",
+                                            "value": "7"
+                                        },
+                                        {
+                                            "id": "b3a4414e-d27c-4240-b272-f1c8587e7e66",
+                                            "cellType": "REPS",
+                                            "value": "7"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/91efd24a-9acc-40dd-8f7f-16a1ab175f33"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "9cf26159-2a11-437c-9574-a500e5e8975c",
+                            "cellSets": [
+                                {
+                                    "id": "68100dcc-b5b0-4308-bccf-e3878bff02be",
+                                    "cells": [
+                                        {
+                                            "id": "b59d4244-4817-4714-9760-fa4911d96331",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "43868e06-badd-4f32-a82d-3350aa1e351d",
+                                            "cellType": "REPS",
+                                            "value": "15"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "be5f5f06-8e8f-4bb1-92d8-f44ec6d34f60",
+                                    "cells": [
+                                        {
+                                            "id": "c2d1b0c0-b699-4c03-b689-5abfa6ce57d5",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "6f2c3db6-4e79-4651-ba76-563de07a13d4",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "60246caa-a0e3-4edb-9526-a3f79a4fcab8",
+                                    "cells": [
+                                        {
+                                            "id": "ae00c458-69b5-4c2a-8af9-94a2d2726683",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "b0c6e220-8970-491b-9385-f27fe2350f33",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "timezoneId": "Europe/Berlin",
+                "id": "87148467-f4ef-47e2-acb1-7723bb017696",
+                "created": "2024-12-06T17:46:59.597Z",
+                "lastChanged": "2024-12-06T17:46:59.597Z",
+                "name": {
+                    "en": "Brust/Trizeps"
+                },
+                "access": "PRIVATE",
+                "startDate": "2024-12-06T16:42:10.814Z",
+                "endDate": "2024-12-06T17:47:00.064Z",
+                "logType": "WORKOUT"
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/logs/7879b074-96a9-4685-9dc8-9295940db188"
+                    },
+                    "user": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518"
+                    },
+                    "template": {
+                        "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/templates/fdfbc66d-6d9c-4cdd-a871-fe916d6368cd"
+                    }
+                },
+                "_embedded": {
+                    "cellSetGroup": [
+                        {
+                            "_links": {},
+                            "_embedded": {},
+                            "id": "c7c01c65-18ec-41ab-90d2-dda46f23e131",
+                            "cellSets": [
+                                {
+                                    "id": "ab544bf7-429c-4158-bef5-47e07baae81c",
+                                    "cells": [
+                                        {
+                                            "id": "6672ae5a-1816-4e5b-ae92-f9b2e45205ca",
+                                            "cellType": "NOTE",
+                                            "value": "yet another note"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "95e2213a-3011-486d-afa1-c0ede9925e5f",
+                            "cellSets": [
+                                {
+                                    "id": "5d60e5c3-4b77-410d-b6b3-5cbb00b9539f",
+                                    "cells": [
+                                        {
+                                            "id": "967c86cc-a672-446f-b722-2629295b8b81",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "bc12fefb-3162-468d-99e0-dae783453a33",
+                                            "cellType": "REPS",
+                                            "value": "13"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "a2f282d8-9fb4-4b22-918f-6dd7361f94dd",
+                                    "cells": [
+                                        {
+                                            "id": "58cea82d-6f10-4190-a2c9-a0694576d200",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "050ab309-c2d7-4567-805d-86d281199b6f",
+                                            "cellType": "REPS",
+                                            "value": "10"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "8fc2ad23-7040-43c9-907c-c699309c5cff",
+                                    "cells": [
+                                        {
+                                            "id": "a1c28638-ec92-4d73-84a8-1462cb88e6d2",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "3abf3c9d-e804-443a-8051-49f5febfb388",
+                                            "cellType": "REPS",
+                                            "value": "7"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/6ae27da7-92b9-4af9-b2a9-e0afd827c188"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "682fe54e-cf92-4196-8f70-38c11f914d87",
+                            "cellSets": [
+                                {
+                                    "id": "903b92b4-b848-4f6a-8a83-c678965cc121",
+                                    "cells": [
+                                        {
+                                            "id": "c0d05362-9bad-4e10-b3b1-37cc61b1ea4a",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "d7626e88-4acc-4400-8072-fe83f256b99c",
+                                            "cellType": "REPS",
+                                            "value": "4"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "eabbb5a3-5461-4228-81cc-5acc1beb7489",
+                                    "cells": [
+                                        {
+                                            "id": "7923c26a-8075-4ad4-b7ab-3946737f5b72",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "33dee2a0-56d3-49e0-8069-7011b888ef2d",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "45e2194f-8c6d-4e82-9863-112a90b1ddbd",
+                                    "cells": [
+                                        {
+                                            "id": "712197c9-192a-47c0-8c2a-409f8844475d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "3d4ac142-181a-4f48-98e9-1a458af88605",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/a60fd1af-31d7-4235-92cd-57f76d1c39e9"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "11eaeda1-1d73-4873-b731-6d96efdacbf4",
+                            "cellSets": [
+                                {
+                                    "id": "3c551b9c-5982-4b8f-b490-3767bbd4e129",
+                                    "cells": [
+                                        {
+                                            "id": "0446bfcc-517f-462b-93fe-371c5e5cee9d",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "62d23a5d-2396-4ca9-9a37-d196384bc39a",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "5e6e701b-b1ad-4c24-995b-70666835bad2",
+                                    "cells": [
+                                        {
+                                            "id": "d1be40df-7b76-40d6-8fda-344ef48342bc",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "7166a12c-9402-4777-ac69-3d1db680875e",
+                                            "cellType": "REPS",
+                                            "value": "12"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "28f80d2e-e2c2-41eb-9494-f99a6898e8b4",
+                                    "cells": [
+                                        {
+                                            "id": "d0f67027-1ccb-4536-8a29-fc3b50f10fdd",
+                                            "cellType": "OTHER_WEIGHT",
+                                            "value": "35"
+                                        },
+                                        {
+                                            "id": "4a6e0f2d-10fe-44b5-ac62-987aea03f47c",
+                                            "cellType": "REPS",
+                                            "value": "9"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        },
+                        {
+                            "_links": {
+                                "measurement": {
+                                    "href": "/api/users/0f518518-5180-4518-b518-51b51851b518/measurements/91efd24a-9acc-40dd-8f7f-16a1ab175f33"
+                                }
+                            },
+                            "_embedded": {},
+                            "id": "f94b29f3-60cb-4cba-ac45-3f6d68661466",
+                            "cellSets": [
+                                {
+                                    "id": "7fbc4352-ee80-43e7-aaa8-ec463f879e50",
+                                    "cells": [
+                                        {
+                                            "id": "dca0eb19-95ef-4ab4-9e9f-15111fe9f907",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "24ff2fc2-be57-48e1-af91-9ed304e125db",
+                                            "cellType": "REPS",
+                                            "value": "16"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "c8a985c9-f107-49b9-bd3b-b490d157fd42",
+                                    "cells": [
+                                        {
+                                            "id": "53229c4d-ec7f-48f2-9252-baa852b8d938",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "40"
+                                        },
+                                        {
+                                            "id": "45482d60-9f92-4719-8d79-b3a186f2a55e",
+                                            "cellType": "REPS",
+                                            "value": "14"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                },
+                                {
+                                    "id": "cc7773b5-9830-4496-8db9-f63d336466e9",
+                                    "cells": [
+                                        {
+                                            "id": "5bfa8d3c-4e21-4e29-ae89-ce5e5d0c4c25",
+                                            "cellType": "BARBELL_WEIGHT",
+                                            "value": "45"
+                                        },
+                                        {
+                                            "id": "6822d48f-562b-4746-81dd-439fd5a5eacd",
+                                            "cellType": "REPS",
+                                            "value": "11"
+                                        }
+                                    ],
+                                    "isCompleted": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "timezoneId": "Europe/Berlin",
+                "id": "7879b074-96a9-4685-9dc8-9295940db188",
+                "created": "2024-12-11T17:19:58.997Z",
+                "lastChanged": "2024-12-11T17:19:58.997Z",
+                "name": {
+                    "en": "Brust/Trizeps"
+                },
+                "access": "PRIVATE",
+                "startDate": "2024-12-11T16:32:33.394Z",
+                "endDate": "2024-12-11T17:19:59.5Z",
+                "logType": "WORKOUT"
+            }
+        ]
+    },
+    "id": "0f518518-5180-4518-b518-51b51851b518",
+    "created": "2024-10-20T21:58:21.527Z",
+    "lastChanged": "2026-01-23T10:09:19.407Z",
+    "username": "my-username",
+    "email": "spam@returnnull.de",
+    "emailVerified": true,
+    "name": " V.",
+    "avatar": {
+        "url": "https://files.strong.app/users/0f518518-5180-4518-b518-51b51851b518/74f8855c-52c9-466b-8229-46021d7553ae.jpg",
+        "contentType": "image/jpeg"
+    },
+    "preferences": {
+        "weightUnit": {
+            "0f518518-5180-4518-b518-51b51851b518": "KILOGRAMS"
+        },
+        "distanceUnit": {
+            "0f518518-5180-4518-b518-51b51851b518": "KILOMETERS"
+        },
+        "restTimer": {
+            "0f518518-5180-4518-b518-51b51851b518": 120,
+            "ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6": 120
+        },
+        "warmupRestTimer": {
+            "ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6": 0
+        },
+        "supersetRestTimer": {},
+        "dropSetRestTimer": {
+            "0f518518-5180-4518-b518-51b51851b518": 10,
+            "ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6": 0
+        },
+        "baseWeight": {},
+        "barType": {
+            "8951200e-5791-4885-bee1-cacac5d08c77": "NONE",
+            "e676f31d-5fa2-4a61-bed6-af0ff6c17c77": "NONE",
+            "c8fc2454-6b09-4e28-a762-397cca489fd2": "NONE",
+            "55afec19-d074-4083-a554-085f533b62ce": "NONE",
+            "a61773eb-580a-448f-9b03-90aeb3c7c83d": "NONE",
+            "4a304d9a-9a7a-440f-bb9a-9fd5cde6b590": "NONE",
+            "fbd89dfb-0de7-4808-86d7-979d6f35126a": "NONE",
+            "75c0cf08-e391-466c-83c5-565d1b278244": "NONE",
+            "bb94b95b-ecb0-4b90-94e3-8f6e557f774b": "NONE",
+            "a8eb5de6-5b77-4e81-adab-0835729506c7": "NONE",
+            "a60fd1af-31d7-4235-92cd-57f76d1c39e9": "NONE",
+            "b92aa3dd-98e1-4e99-a229-434be54c1ae5": "NONE",
+            "4a8de470-a971-45db-830e-5f4b28db0894": "NONE",
+            "143f848f-3a01-40bd-88d1-613c3a88309e": "NONE",
+            "0abcf1b6-58f6-4ec9-be63-32bd5c3cfd33": "NONE",
+            "231a78da-13dc-441d-ac31-03d5730e8168": "NONE",
+            "b8b33683-ce46-4392-8be5-207fe8e605bd": "NONE",
+            "d3f21789-0e0c-4c2a-a633-3617f383a11d": "NONE",
+            "b0c8a069-aae9-40d4-b842-a61a3c7cacde": "NONE",
+            "312f0076-00f8-47a4-9365-38c80b99cb91": "NONE",
+            "70709ccd-1f01-4725-98ad-193d2004babf": "NONE",
+            "93d038a6-92fc-484d-a948-9fad070ff5b1": "NONE",
+            "88b0165c-0c7c-423a-949d-0171baa354c2": "NONE",
+            "8dc8a29b-674b-43c9-bf6e-46b95f3414be": "NONE",
+            "99afdf73-0e2f-4f2d-a10d-90299196b0db": "NONE",
+            "7d1df88e-8610-495b-83a3-d68aabbfee8a": "NONE",
+            "3718fbd6-a0e5-4d56-bb92-10feb3600156": "NONE",
+            "933a3dbf-b9c2-40f9-852f-cd2b26dd9eb1": "NONE",
+            "aa185f9c-9341-4260-b007-593e9b74db10": "NONE",
+            "fe4e5949-5f51-4c60-a31f-b45bd9ad8023": "NONE",
+            "f12e2a9b-02ea-4d38-9127-aa6234786d3a": "NONE",
+            "b2f5a8c1-b66a-4b4f-8f2a-72fbf578d943": "NONE",
+            "04e2090c-a84e-47a1-81c5-55103b28ed2f": "NONE",
+            "213bd3ef-1207-4fd8-acdd-cb224a8b42a7": "NONE",
+            "a467f043-c96e-43c8-9133-a33eb8e62ded": "NONE",
+            "980cb0df-4ef3-4af7-9333-48ee9f3943ce": "NONE",
+            "6ae27da7-92b9-4af9-b2a9-e0afd827c188": "NONE",
+            "b101465f-bec5-40cd-9434-0d832e5c655e": "NONE",
+            "b292faa1-44cf-4aa3-9670-43200c2d1832": "NONE",
+            "1edc86ac-5c4a-46b4-a29b-04141141ff6b": "NONE",
+            "819a0ba2-0a52-41f9-81dc-8f00c1f5a55d": "NONE",
+            "f33643ea-6cc0-4966-8b1a-b87696015072": "NONE",
+            "14263e88-13d4-4582-9b18-423a36631645": "NONE",
+            "9000fcaf-155a-410e-b774-ee1dce73b62d": "NONE",
+            "45fbc14c-584e-473f-81f3-14ad422906be": "NONE",
+            "79a42fc3-5363-48d7-9fba-8e643d50bbd4": "NONE",
+            "0373b862-bde8-4335-ab03-763cca57455c": "NONE",
+            "a8121bda-a232-4da2-be80-85bbe05c53d7": "NONE",
+            "59bb3ebb-acab-426b-aedf-6149b8ef9100": "NONE",
+            "caa35db9-e106-4915-840c-e7205f6e7228": "NONE",
+            "42695e60-4dd7-41a0-8233-c26b1fe24e6e": "NONE",
+            "d53099b7-31f3-41fa-99e2-72fdf47c4503": "NONE",
+            "247fe479-b90c-40a3-baf1-07f3c05ed014": "NONE",
+            "6102ebdd-f375-4cdb-8f3e-b50fbe0086ef": "NONE",
+            "e6cb00c6-1460-4440-9c19-7fd6f4badf8d": "NONE",
+            "b710665a-f88e-4d31-99bf-5ecb7b5f6500": "NONE",
+            "65e1c38c-2013-40df-9d57-716a7f7f71e1": "NONE",
+            "0973c5dd-5b62-4e9e-a15e-114cb94f440d": "NONE",
+            "f31e19c8-1671-40e4-9089-e341fffe7751": "NONE",
+            "b45be635-5eac-4d46-8071-607c1b1834cc": "NONE",
+            "21ddb847-98cd-4f6c-bea5-1df51163973d": "NONE",
+            "c9ef4e7a-2bec-41b1-8e62-b68dc6d81fb2": "NONE",
+            "487e8b08-458f-43da-a9f6-e339c8d548a9": "NONE",
+            "091ba495-1623-4578-95f0-5bd1aeebf3e9": "NONE",
+            "bad7dcc2-fac7-4ec8-8c03-1ec6bb471069": "NONE",
+            "4b8c9374-ab32-4912-906a-202ef1b20ea6": "NONE",
+            "f21ec917-6402-4938-8103-128fd49d13aa": "NONE",
+            "7f6f4c96-4893-4f40-a7f4-2baf53cb3d04": "NONE",
+            "b1c68d18-cdc5-466a-96ea-c233473541dc": "NONE",
+            "534954cb-6720-45c4-bf63-a0766142ec6c": "NONE",
+            "56f23487-1b65-4d4e-bcba-9d7a424110ef": "NONE",
+            "a3f1d57d-da0e-466d-a691-c03695d39418": "NONE",
+            "a1b1a1cb-dacc-4d18-bf62-95d597db6715": "NONE",
+            "74a43a3f-5e0b-43c8-953e-f7e9c7d72986": "NONE",
+            "3e15b3fa-bd04-49ff-a622-633208a2d5df": "NONE",
+            "ca9ee259-a69f-4839-bbf9-46ba8cf0d7d6": "OLYMPIC_BAR"
+        },
+        "autoStartRestTimer": {},
+        "availablePlates": {
+            "0f518518-5180-4518-b518-51b51851b518": [
+                "PLATE_20KG",
+                "PLATE_10KG",
+                "PLATE_5KG",
+                "PLATE_2_5KG",
+                "PLATE_1_25KG"
+            ]
+        },
+        "lengthUnit": {
+            "0f518518-5180-4518-b518-51b51851b518": "CENTIMETERS"
+        },
+        "resistanceWeightUnit": {
+            "0f518518-5180-4518-b518-51b51851b518": "KILOGRAMS"
+        },
+        "restTimerIncrementValue": {
+            "0f518518-5180-4518-b518-51b51851b518": 5
+        }
+    },
+    "purchases": [
+        {
+            "purchaseId": "legacy",
+            "expiryTime": "2069-04-20T13:37:00.002Z",
+            "autoRenewing": false,
+            "sku": "legacy",
+            "source": "LEGACY",
+            "paymentState": "UNDEFINED"
+        }
+    ],
+    "legacyPurchase": {
+        "upgrades": [],
+        "proExpirationDate": "2069-04-20T13:37:00.002Z"
+    },
+    "legacyGoals": {
+        "workoutsPerWeek": 3
+    },
+    "legacyCustomBarTypes": [
+        {
+            "legacyCustomBarTypeId": "c911c5bf-8747-49bb-bb04-a32fec541ccf",
+            "name": "SZ-Stange",
+            "weightInKilograms": 10.0,
+            "weightInPounds": 22.05
+        }
+    ],
+    "startHistoryFromDate": "1970-01-01T00:00:00Z",
+    "firstWeekDay": "MONDAY",
+    "availableLogins": [
+        {
+            "provider": "Password",
+            "name": "Tolik",
+            "email": "spam@returnnull.de"
+        },
+        {
+            "provider": "Google",
+            "name": "Tolik",
+            "email": "spam@returnnull.de"
+        }
+    ],
+    "migrated": "2024-12-21T15:53:30.376Z"
+}
