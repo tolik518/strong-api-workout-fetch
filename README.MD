@@ -1,6 +1,6 @@
 # Strong APP Workout Fetch
 
-This is a Rust-based service to fetch workouts from the [Strong App](https://www.strong.app/) (available for [Apple](https://apps.apple.com/us/app/strong-workout-tracker-gym-log/id464254577) and [Android](https://play.google.com/store/apps/details?id=io.strongapp.strong)) and store them in a Clickhouse database.
+This is a Rust-based service to fetch workouts from the [Strong App](https://www.strong.app/) (available for [Apple](https://apps.apple.com/us/app/strong-workout-tracker-gym-log/id464254577) and [Android](https://play.google.com/store/apps/details?id=io.strongapp.strong)) and store them in a ClickHouse database.
 
 
 The URL to the API backend is not provided here, for now, because it's not entirely public and because of possible legal implications.
@@ -20,9 +20,9 @@ You can find the Grafana JSON for the [heatmap](./examples/grafana/heatmap.json)
 
 ## How to use
 
-0. Have your Clckhouse database ready and running
+0. Have your ClickHouse database ready and running
 1. Clone this repo
-2. Create .env file in the root directory with the following content:
+2. Create `.env` file in the root directory with the following content:
     ```ini
     STRONG_BACKEND=https://strong_backend_url.com
     
@@ -41,6 +41,4 @@ You can find the Grafana JSON for the [heatmap](./examples/grafana/heatmap.json)
 
 1. Make sure you have Docker and Docker Compose installed.
 2. Create a `.env` file in the root directory with the same content as above.
-   3Start the service with `docker compose up -d`.
-
-
+3. Start the service with `docker compose up -d`.
