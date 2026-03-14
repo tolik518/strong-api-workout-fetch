@@ -27,4 +27,3 @@ fn test_api_error_deserializes() {
     assert_eq!(err.code, "NOT_FOUND");
     assert_eq!(err.description, "Resource not found");
 }
-

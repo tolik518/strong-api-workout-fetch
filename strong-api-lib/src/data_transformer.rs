@@ -169,14 +169,12 @@ impl DataTransformer {
             .and_then(|cell| cell.value.as_ref())
             .and_then(|s| s.parse::<f32>().ok());
 
-        Some(
-            Set {
-                id: cell_set.id.clone(),
-                weight,
-                reps,
-                rpe,
-            }
-        )
+        Some(Set {
+            id: cell_set.id.clone(),
+            weight,
+            reps,
+            rpe,
+        })
     }
 
     fn get_measurement_id_from_link(links: &CellSetGroupLinks) -> String {
@@ -189,4 +187,3 @@ impl DataTransformer {
         parts[parts.len() - 1].to_string()
     }
 }
-

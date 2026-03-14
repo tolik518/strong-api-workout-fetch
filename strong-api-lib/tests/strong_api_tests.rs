@@ -97,7 +97,10 @@ async fn test_login_sets_tokens() {
     api.login("user", "pass").await.unwrap();
     assert_eq!(api.access_token.as_deref(), Some("test-access-token"));
     assert_eq!(api.refresh_token.as_deref(), Some("test-refresh-token"));
-    assert_eq!(api.user_id.as_deref(), Some("00000000-0000-0000-0000-000000000001"));
+    assert_eq!(
+        api.user_id.as_deref(),
+        Some("00000000-0000-0000-0000-000000000001")
+    );
 }
 #[tokio::test]
 async fn test_login_invalid_json_returns_error() {
@@ -142,7 +145,12 @@ async fn test_refresh_without_access_token_returns_error() {
     let mut api = refused_api();
     let result = api.refresh().await;
     assert!(result.is_err());
-    assert!(result.unwrap_err().to_string().contains("Missing access token"));
+    assert!(
+        result
+            .unwrap_err()
+            .to_string()
+            .contains("Missing access token")
+    );
 }
 #[tokio::test]
 async fn test_refresh_invalid_json_returns_error() {
@@ -310,7 +318,12 @@ async fn test_get_logs_raw_without_access_token_returns_error() {
     api.user_id = Some("00000000-0000-0000-0000-000000000001".to_string());
     let result = api.get_logs_raw().await;
     assert!(result.is_err());
-    assert!(result.unwrap_err().to_string().contains("Missing access token"));
+    assert!(
+        result
+            .unwrap_err()
+            .to_string()
+            .contains("Missing access token")
+    );
 }
 #[tokio::test]
 async fn test_get_logs_raw_send_failure_returns_error() {

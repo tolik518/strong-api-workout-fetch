@@ -22,37 +22,55 @@ fn response_from_fixture() -> MeasurementsResponse {
 
 #[test]
 fn test_name_display_en() {
-    let name = Name { en: Some("Bench Press".to_string()), custom: None };
+    let name = Name {
+        en: Some("Bench Press".to_string()),
+        custom: None,
+    };
     assert_eq!(name.to_string(), "Bench Press");
 }
 
 #[test]
 fn test_name_display_custom_fallback() {
-    let name = Name { en: None, custom: Some("My Exercise".to_string()) };
+    let name = Name {
+        en: None,
+        custom: Some("My Exercise".to_string()),
+    };
     assert_eq!(name.to_string(), "My Exercise");
 }
 
 #[test]
 fn test_name_display_unknown_fallback() {
-    let name = Name { en: None, custom: None };
+    let name = Name {
+        en: None,
+        custom: None,
+    };
     assert_eq!(name.to_string(), "Unknown");
 }
 
 #[test]
 fn test_name_from_name_en() {
-    let name = Name { en: Some("Squat".to_string()), custom: None };
+    let name = Name {
+        en: Some("Squat".to_string()),
+        custom: None,
+    };
     assert_eq!(String::from(name), "Squat");
 }
 
 #[test]
 fn test_name_from_name_custom_fallback() {
-    let name = Name { en: None, custom: Some("Custom".to_string()) };
+    let name = Name {
+        en: None,
+        custom: Some("Custom".to_string()),
+    };
     assert_eq!(String::from(name), "Custom");
 }
 
 #[test]
 fn test_name_from_name_unknown_fallback() {
-    let name = Name { en: None, custom: None };
+    let name = Name {
+        en: None,
+        custom: None,
+    };
     assert_eq!(String::from(name), "Unknown");
 }
 

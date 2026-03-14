@@ -21,15 +21,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Load configuration from environment variables.
     let config = load_config()?;
-    let url = Url::parse(&config.strong_backend)
-        .expect("STRONG_BACKEND is not a valid URL");
+    let url = Url::parse(&config.strong_backend).expect("STRONG_BACKEND is not a valid URL");
 
     // Initialize the API and ClickHouse saver.
     let mut strong_api = StrongApi::new(url);
     let clickhouse_saver = create_clickhouse_saver(&config);
 
     // Log in to the API.
-    strong_api.login(config.username.as_str(), config.password.as_str()).await?;
+    strong_api
+        .login(config.username.as_str(), config.password.as_str())
+        .await?;
 
     // Get the measurements (either from file or API).
     let measurements_response = get_measurements_response(&mut strong_api).await?;
@@ -72,22 +73,15 @@ struct Config {
 /// Load configuration values from environment variables.
 fn load_config() -> Result<Config, Box<dyn std::error::Error>> {
     Ok(Config {
-        username: env::var("STRONG_USER")
-            .expect("STRONG_USER must be set"),
-        password: env::var("STRONG_PASS")
-            .expect("STRONG_PASS must be set"),
-        strong_backend: env::var("STRONG_BACKEND")
-            .expect("STRONG_BACKEND must be set"),
-        clickhouse_url: env::var("CLICKHOUSE_URL")
-            .expect("CLICKHOUSE_URL must be set"),
-        clickhouse_user: env::var("CLICKHOUSE_USER")
-            .expect("CLICKHOUSE_USER must be set"),
-        clickhouse_pass: env::var("CLICKHOUSE_PASS")
-            .expect("CLICKHOUSE_PASS must be set"),
+        username: env::var("STRONG_USER").expect("STRONG_USER must be set"),
+        password: env::var("STRONG_PASS").expect("STRONG_PASS must be set"),
+        strong_backend: env::var("STRONG_BACKEND").expect("STRONG_BACKEND must be set"),
+        clickhouse_url: env::var("CLICKHOUSE_URL").expect("CLICKHOUSE_URL must be set"),
+        clickhouse_user: env::var("CLICKHOUSE_USER").expect("CLICKHOUSE_USER must be set"),
+        clickhouse_pass: env::var("CLICKHOUSE_PASS").expect("CLICKHOUSE_PASS must be set"),
         clickhouse_database: env::var("CLICKHOUSE_DATABASE")
             .expect("CLICKHOUSE_DATABASE must be set"),
-        clickhouse_table: env::var("CLICKHOUSE_TABLE")
-            .expect("CLICKHOUSE_TABLE must be set"),
+        clickhouse_table: env::var("CLICKHOUSE_TABLE").expect("CLICKHOUSE_TABLE must be set"),
     })
 }
 

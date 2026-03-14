@@ -45,8 +45,8 @@ fn test_transform_without_measurements_produces_workouts() {
 
 #[test]
 fn test_transform_with_measurements_resolves_names() {
-    let transformer = DataTransformer::new()
-        .with_measurements_response(measurements_from_fixture());
+    let transformer =
+        DataTransformer::new().with_measurements_response(measurements_from_fixture());
     let logs = logs_from_fixture();
     let workouts = transformer.get_measurements_from_logs(&logs).unwrap();
 
@@ -55,7 +55,10 @@ fn test_transform_with_measurements_resolves_names() {
 
     // Every exercise whose measurement was found in the lookup has a non-empty name.
     let named = exercises.iter().filter(|e| !e.name.is_empty()).count();
-    assert!(named > 0, "at least one exercise should have a resolved name");
+    assert!(
+        named > 0,
+        "at least one exercise should have a resolved name"
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -64,18 +67,15 @@ fn test_transform_with_measurements_resolves_names() {
 
 #[test]
 fn test_only_groups_with_real_sets_become_exercises() {
-    let transformer = DataTransformer::new()
-        .with_measurements_response(measurements_from_fixture());
+    let transformer =
+        DataTransformer::new().with_measurements_response(measurements_from_fixture());
     let logs = logs_from_fixture();
     let workouts = transformer.get_measurements_from_logs(&logs).unwrap();
 
     // Count CSGs in the raw fixture log
     let json = load_fixture("user_response.json");
     let user: UserResponse = serde_json::from_str(&json).unwrap();
-    let raw_csg_count = user.embedded.log.unwrap()[0]
-        .embedded
-        .cell_set_group
-        .len();
+    let raw_csg_count = user.embedded.log.unwrap()[0].embedded.cell_set_group.len();
 
     // Transformed exercise count can be at most the number of raw CSGs
     assert!(workouts[0].exercises.len() <= raw_csg_count);
@@ -87,16 +87,20 @@ fn test_only_groups_with_real_sets_become_exercises() {
 
 #[test]
 fn test_sets_have_weight_and_reps() {
-    let transformer = DataTransformer::new()
-        .with_measurements_response(measurements_from_fixture());
+    let transformer =
+        DataTransformer::new().with_measurements_response(measurements_from_fixture());
     let logs = logs_from_fixture();
     let workouts = transformer.get_measurements_from_logs(&logs).unwrap();
 
     let exercises = &workouts[0].exercises;
     for exercise in exercises {
-        assert!(!exercise.sets.is_empty(), "exercise {} should have sets", exercise.id);
+        assert!(
+            !exercise.sets.is_empty(),
+            "exercise {} should have sets",
+            exercise.id
+        );
         for set in &exercise.sets {
-            let _ = set.reps;   // always present
+            let _ = set.reps; // always present
             let _ = set.weight; // optional (None for bodyweight)
         }
     }
@@ -125,7 +129,9 @@ fn test_workout_metadata_is_present() {
 // the name lookup succeeds; if the link is absent the name is empty.
 // ---------------------------------------------------------------------------
 
-fn make_log_with_measurement_link(measurement_href: Option<&str>) -> Vec<strong_api_lib::models::workout::Log> {
+fn make_log_with_measurement_link(
+    measurement_href: Option<&str>,
+) -> Vec<strong_api_lib::models::workout::Log> {
     use serde_json::json;
     use strong_api_lib::models::common::Link;
     use strong_api_lib::models::workout::{
@@ -138,15 +144,25 @@ fn make_log_with_measurement_link(measurement_href: Option<&str>) -> Vec<strong_
             cell_set_group: vec![CellSetGroup {
                 id: "csg-link-test".to_string(),
                 links: CellSetGroupLinks {
-                    measurement: measurement_href.map(|href| Link { href: href.to_string() }),
+                    measurement: measurement_href.map(|href| Link {
+                        href: href.to_string(),
+                    }),
                 },
                 embedded: CellSetGroupEmbedded {},
                 cell_sets: vec![CellSet {
                     id: "cs-link-test".to_string(),
                     is_completed: Some(true),
                     cells: vec![
-                        Cell { id: "c1".to_string(), cell_type: "BARBELL_WEIGHT".to_string(), value: Some("80".to_string()) },
-                        Cell { id: "c2".to_string(), cell_type: "REPS".to_string(), value: Some("5".to_string()) },
+                        Cell {
+                            id: "c1".to_string(),
+                            cell_type: "BARBELL_WEIGHT".to_string(),
+                            value: Some("80".to_string()),
+                        },
+                        Cell {
+                            id: "c2".to_string(),
+                            cell_type: "REPS".to_string(),
+                            value: Some("5".to_string()),
+                        },
                     ],
                 }],
             }],
@@ -184,7 +200,8 @@ fn test_measurement_id_extracted_from_link_resolves_name() {
 fn test_missing_measurement_link_gives_empty_name() {
     let logs = make_log_with_measurement_link(None);
 
-    let transformer = DataTransformer::new().with_measurements_response(measurements_from_fixture());
+    let transformer =
+        DataTransformer::new().with_measurements_response(measurements_from_fixture());
     let workouts = transformer.get_measurements_from_logs(&Some(logs)).unwrap();
 
     assert_eq!(workouts[0].exercises[0].name, "");
@@ -194,7 +211,9 @@ fn test_missing_measurement_link_gives_empty_name() {
 // Cell type coverage — NOTE filter, all weight variants, RPE, missing REPS
 // ---------------------------------------------------------------------------
 
-fn make_log_with_cells(cells: Vec<(String, Option<String>)>) -> Vec<strong_api_lib::models::workout::Log> {
+fn make_log_with_cells(
+    cells: Vec<(String, Option<String>)>,
+) -> Vec<strong_api_lib::models::workout::Log> {
     use serde_json::json;
     use strong_api_lib::models::workout::{
         Cell, CellSet, CellSetGroup, CellSetGroupEmbedded, CellSetGroupLinks, Log, LogEmbedded,
@@ -244,7 +263,10 @@ fn test_note_cell_type_is_excluded() {
     ]);
     let transformer = DataTransformer::new();
     let workouts = transformer.get_measurements_from_logs(&Some(logs)).unwrap();
-    assert!(workouts[0].exercises.is_empty(), "NOTE cell should cause the group to be filtered out");
+    assert!(
+        workouts[0].exercises.is_empty(),
+        "NOTE cell should cause the group to be filtered out"
+    );
 }
 
 #[test]
@@ -283,9 +305,7 @@ fn test_weighted_bodyweight_cell_type() {
 #[test]
 fn test_no_weight_cell_gives_none() {
     // Only REPS, no weight cell at all
-    let logs = make_log_with_cells(vec![
-        ("REPS".to_string(), Some("10".to_string())),
-    ]);
+    let logs = make_log_with_cells(vec![("REPS".to_string(), Some("10".to_string()))]);
     let transformer = DataTransformer::new();
     let workouts = transformer.get_measurements_from_logs(&Some(logs)).unwrap();
     assert_eq!(workouts[0].exercises[0].sets[0].weight, None);
@@ -317,7 +337,9 @@ fn test_missing_reps_value_defaults_to_zero() {
 #[test]
 fn test_empty_logs_vec_returns_empty_workouts() {
     let transformer = DataTransformer::new();
-    let workouts = transformer.get_measurements_from_logs(&Some(vec![])).unwrap();
+    let workouts = transformer
+        .get_measurements_from_logs(&Some(vec![]))
+        .unwrap();
     assert!(workouts.is_empty());
 }
 
@@ -335,4 +357,3 @@ fn test_data_transformer_default_equals_new() {
     let workouts = by_default.get_measurements_from_logs(&None).unwrap();
     assert!(workouts.is_empty());
 }
-
