@@ -31,11 +31,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Extract version from Cargo.toml
         run: |
           VERSION=$(grep '^version' strong-api-fetch/Cargo.toml | head -n 1 | sed -E 's/version *= *"([^"]+)".*/\1/')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Version extracted: $VERSION"
+
       - name: Check existing tag
         id: check_tag
         run: |
@@ -48,6 +50,7 @@ jobs:
             echo "New version detected: $VERSION"
             echo "tag_created=true" >> $GITHUB_OUTPUT
           fi
+
       - name: Create and push Git tag
         if: steps.check_tag.outputs.tag_created == 'true'
         run: |
@@ -64,11 +67,13 @@ jobs:
       name: production
     steps:
       - uses: actions/checkout@v4
+
       - name: Extract version from Cargo.toml
         run: |
           VERSION=$(grep '^version' strong-api-fetch/Cargo.toml | head -n 1 | sed -E 's/version *= *"([^"]+)".*/\1/')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Version extracted: $VERSION"
+
       - name: SSH into Server and Deploy
         env:
           PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -103,5 +108,10 @@ jobs:
             fi
             echo "Deployment successful - container is running"
           EOF
+          
+          if [ $? -ne 0 ]; then
+              echo "Deployment failed"
+              exit 1
+          fi
 
           rm -f private_key.pem
