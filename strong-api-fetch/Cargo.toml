@@ -1,18 +1,18 @@
 [package]
 name = "strong-api-fetch"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2024"
 
 [dependencies]
 strong-api-lib = { path = "../strong-api-lib" }
 dotenvy = "0.15"
-reqwest = "0.12.14"
+reqwest = "0.13.2"
 serde_json = "1.0"
 tokio = { version = "1", features = ["full"] }
-clickhouse = { version = "0.13.2", features = ["inserter", "time", "uuid"] }
+clickhouse = { version = "0.13.3", features = ["inserter", "time", "uuid"] }
 serde = { version = "1.0.219", features = ["derive"] }
 uuid = { version = "1.15.1", features = ["serde"] }
 time = { version = "0.3.40", features = ["parsing", "macros", "formatting"] }
 
 [dev-dependencies]
-clickhouse = { version = "0.13.2", features = ["test-util"] }
+clickhouse = { version = "0.13.3", features = ["test-util"] }

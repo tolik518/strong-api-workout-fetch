@@ -1,7 +1,8 @@
 use clickhouse::Row;
+use clickhouse::insert::Insert;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
-use strong_api_lib::data_transformer::{Exercise, Workout};
+use strong_api_lib::data_transformer::Workout;
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
 use uuid::Uuid;
@@ -62,7 +63,7 @@ impl ClickHouseSaver {
     ///
     /// A Result indicating success or any error encountered.
     pub async fn save_workout(&self, workout: &Workout) -> Result<(), Box<dyn Error>> {
-        let mut insert = self.client.insert(&self.table_name)?;
+        let mut insert: Insert<WorkoutSet> = self.client.insert(&self.table_name)?;
 
         for exercise in &workout.exercises {
             let exercise_nr = workout

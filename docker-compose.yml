@@ -1,13 +1,11 @@
 services:
   strong-api-fetch:
-    build:
-      context: .
+    image: factorion-bot:${VERSION}
     container_name: strong-api-fetch
     restart: unless-stopped
     depends_on:
       clickhouse-server:
         condition: service_started
-
     volumes:
       - ./:/usr/strong-api-fetch
     networks:
