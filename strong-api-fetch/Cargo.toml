@@ -12,7 +12,7 @@ tokio = { version = "1", features = ["full"] }
 clickhouse = { version = "0.13.3", features = ["inserter", "time", "uuid"] }
 serde = { version = "1.0.219", features = ["derive"] }
 uuid = { version = "1.15.1", features = ["serde"] }
-time = { version = "0.3.40", features = ["parsing", "macros", "formatting"] }
+time = { version = "0.3.47", features = ["parsing", "macros", "formatting"] }
 
 [dev-dependencies]
 clickhouse = { version = "0.13.3", features = ["test-util"] }
