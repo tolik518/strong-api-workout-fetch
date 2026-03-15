@@ -1,7 +1,7 @@
 use clickhouse::Row;
+use clickhouse::insert::Insert;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
-use clickhouse::insert::Insert;
 use strong_api_lib::data_transformer::Workout;
 use time::OffsetDateTime;
 use time::format_description::well_known::Rfc3339;
