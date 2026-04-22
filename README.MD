@@ -7,12 +7,12 @@ The URL to the API backend is not provided here, for now, because it's not entir
 
 If using docker-compose, the service will run 18:00, 18:30, 19:00, 19:30, 20:00 and 20:30, but you can change this in the `Dockerfile`.
 
+![heatmap](https://r0.fyi/strong?style=dark)
+
 ## Why?
 
 So you can do fun stuff with your workout data, like doing silly grafana dashboards.
 For example, you can use the [Grafana Clickhouse plugin](https://grafana.com/grafana/plugins/grafana-clickhouse-datasource/) to visualize your workout data.
-
-![heatmap](https://r0.fyi/strong?style=dark)
 
 You can make heatmaps, like the one you have on github, or you can make a dashboard that shows your progress over time, or you can make a dashboard that shows your workout history.
 

@@ -1,0 +1,48 @@
+# Docker Compose configuration intended for dev environment. It sets up a ClickHouse server and a PHP application to visualize workout data.
+services:
+  heatmap:
+    build: .
+    container_name: heatmap
+    ports:
+      - "1337:80"
+    volumes:
+      - ./workout-heatmap.php:/var/www/html/workout-heatmap.php
+    environment:
+      - CH_HOST=clickhouse-server
+      - CH_PORT=8123
+      - CH_DB=workouts
+      - CH_USER=tolik518
+      - CH_PASS=admin
+      - CH_PROTOCOL=http
+    networks:
+      - service-network
+    depends_on:
+      clickhouse-server:
+        condition: service_healthy
+
+  clickhouse-server:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-server
+    volumes:
+      - ./clickhouse/data:/var/lib/clickhouse
+      - ./clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /var/log/clickhouse-server:/var/log/clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      - CLICKHOUSE_DB=workouts
+      - CLICKHOUSE_USER=tolik518
+      - CLICKHOUSE_PASSWORD=admin
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8123/ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      service-network:
+        aliases:
+          - clickhouse-server
+
+networks:
+  service-network:
